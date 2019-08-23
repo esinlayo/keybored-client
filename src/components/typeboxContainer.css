@@ -1,0 +1,25 @@
+#typebox {
+  position: relative;
+}
+
+#textTyped {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0) !important;
+  border: none !important;
+  font-size: 24px;
+  margin: 0;
+  outline: none;
+}
+
+#textToTypebox {
+  position: absolute;
+
+  font-size: 24px;
+  color: gray;
+}
+
+.highlightError {
+  background: red;
+}

@@ -51,21 +51,16 @@ const classes = {
 };
 
 export default class ControlBox extends Component {
-  state = {
-    capsEnabled: true,
-    punctuationEnabled: true
-  };
   render() {
     const handleChange = name => event => {
-      this.setState({ ...this.state, [name]: event.target.checked });
       this.props.onOptionsChange({ [name]: event.target.checked });
     };
 
-    const { capsEnabled, punctuationEnabled } = this.state;
-    const error = [capsEnabled, punctuationEnabled].filter(v => v).length !== 2;
+    const capsEnabled = this.props.capsEnabled;
+    const punctuationEnabled = this.props.punctuationEnabled;
 
     return (
-      <div id="controlBox" className={classes.root} cd>
+      <div id="controlBox" className={classes.root}>
         <div style={classes.root}>
           <FormControl component="fieldset" style={classes.formControl}>
             <Button
@@ -73,6 +68,8 @@ export default class ControlBox extends Component {
               size="small"
               color="secondary"
               variant="outlined"
+              disabled={this.props.startTime === null}
+              onClick={this.props.onRestart}
             >
               Restart
             </Button>
@@ -81,6 +78,7 @@ export default class ControlBox extends Component {
               size="small"
               color="secondary"
               variant="outlined"
+              onClick={this.props.onNewPassage}
             >
               New Passage
             </Button>
@@ -92,7 +90,6 @@ export default class ControlBox extends Component {
                     style={classes.crazy}
                     checked={capsEnabled}
                     onChange={handleChange("capsEnabled")}
-                    value="capsEnabled"
                     m={0}
                   />
                 }
@@ -105,7 +102,6 @@ export default class ControlBox extends Component {
                     style={classes.crazy}
                     checked={punctuationEnabled}
                     onChange={handleChange("punctuationEnabled")}
-                    value="punctuationEnabled"
                   />
                 }
                 label="Punctuation"

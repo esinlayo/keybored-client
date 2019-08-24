@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import ProgressContainer from "./gameContainer/progressContainer";
 import ControlBox from "./gameContainer/controlBox";
-import TypeBox from "./gameContainer/typeBox";
+import TypeMeBox from "./gameContainer/typeMeBox";
 import "./gameContainer/gameContainer.css";
 
 import { getTextToType, generateIdx } from "../services.jsx";
@@ -22,62 +22,152 @@ class SinglePlayer extends Component {
       passageIdx: passageIdx,
       textToType: getTextToType(passageIdx),
       textTyped: "",
-      progress: 0,
-      typingStarted: false,
-      nextPassageSettings: initPassageSettings
+      nextPassageSettings: initPassageSettings,
+
+      lastErrorIdx: null,
+      hasError: false,
+      error: "",
+      startTime: null
     };
   }
+
+  getTransformed = (text, newSettings) => {
+    let transformed = text;
+    const nextPassageSettings = newSettings
+      ? newSettings
+      : this.state.nextPassageSettings;
+    const { capsEnabled, punctuationEnabled } = nextPassageSettings;
+    if (!capsEnabled) transformed = transformed.toLowerCase();
+    if (!punctuationEnabled)
+      transformed = transformed.replace(/['".,/#!$%^&*;:{}=\-_`~()]/g, "");
+
+    return transformed;
+  };
+
+  handleRestart = newSettings => {
+    this.setState({
+      textToType: this.getTransformed(
+        getTextToType(this.state.passageIdx),
+        newSettings
+      ),
+      textTyped: "",
+      error: "",
+      startTime: null
+    });
+  };
+
+  handleNew = newSettings => {
+    const passageIdx = generateIdx();
+    this.setState({
+      passageIdx,
+      textToType: this.getTransformed(getTextToType(passageIdx), newSettings),
+      textTyped: "",
+      error: "",
+      startTime: null
+    });
+  };
+
+  handleOptions = x => {
+    const nextPassageSettings = { ...this.state.nextPassageSettings, ...x };
+    this.setState({ nextPassageSettings });
+    if (this.state.textTyped === "") this.handleRestart(nextPassageSettings);
+  };
 
   render() {
     return (
       <div className="gameContainer">
-        <ProgressContainer progress={this.state.progress} />
-        <ControlBox onOptionsChange={this.handleOptions} />
-        <div id="instructions">{this.renderHelpMessage()}</div>
-        <TypeBox
-          textToType={this.state.textToType}
-          onType={this.handleTyping}
-          onGameFinish={this.handleGameFinish}
+        <ProgressContainer progress={this.getProgress()} />
+        <ControlBox
+          onOptionsChange={this.handleOptions}
+          startTime={this.state.startTime}
+          onRestart={go => this.handleRestart()}
+          onNewPassage={go => this.handleNew()}
+          capsEnabled={this.state.nextPassageSettings.capsEnabled}
+          punctuationEnabled={this.state.nextPassageSettings.punctuationEnabled}
         />
+        <div id="instructions">{this.renderHelpMessage()}</div>
+        <div id="typebox">
+          <TypeMeBox
+            id="typeMeBox"
+            textToType={this.state.textToType}
+            lastErrorIdx={this.state.lastErrorIdx}
+            error={this.state.error}
+          />
+          <textarea
+            autoFocus
+            className="form-control transparent-input"
+            id="typedInputBox"
+            type="text"
+            spellCheck="false"
+            autoComplete="off"
+            onPaste={e => e.preventDefault()}
+            onKeyPress={e => {
+              if (e.keyCode === 13 || e.which === 13) e.preventDefault();
+            }}
+            onChange={this.handleChange}
+            value={this.state.textTyped}
+          />
+        </div>
       </div>
     );
   }
-
-  handleOptions = x => {
-    let newSettings = { ...this.state.nextPassageSettings, ...x };
-
-    if (!this.state.typingStarted) {
-      let { capsEnabled, punctuationEnabled } = newSettings;
-
-      let nextPassage = getTextToType(this.state.passageIdx);
-      if (!capsEnabled) nextPassage = nextPassage.toLowerCase();
-      if (!punctuationEnabled)
-        nextPassage = nextPassage.replace(/['".,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
-
-      this.setState({
-        textToType: nextPassage,
-        nextPassageSettings: newSettings
-      });
-      return;
-    }
-    this.setState({
-      nextPassageSettings: newSettings
-    });
-  };
 
   renderHelpMessage = () => {
     if (this.state.typingStarted) return "";
     return "When you begin typing, the timer will start!";
   };
 
-  handleTyping = (typed, lastErrorIdx, startTime) => {
-    const goal = this.state.textToType.length;
-    let progress =
-      lastErrorIdx !== null ? lastErrorIdx / goal : typed.length / goal;
-    let typingStarted = startTime !== null;
+  handleChange = ({ currentTarget: input }) => {
+    console.log(input.value);
+    const textTyped = input.value;
+    const changeIdx = textTyped.length - 1;
+    const typedChar = [...textTyped][changeIdx];
+    const charToType = [...this.state.textToType][changeIdx];
 
-    this.setState({ textTyped: typed, typingStarted, progress });
+    let { lastErrorIdx, hasError, error, startTime } = this.state;
+
+    if (changeIdx === 0 && startTime === null) {
+      startTime = new Date().getTime();
+    }
+
+    if (hasError && changeIdx === lastErrorIdx - 1) {
+      // Typebox contents have reverted back to contents before the last error was made.
+      lastErrorIdx = null;
+      hasError = false;
+      error = "";
+    }
+
+    if (!hasError && typedChar !== charToType) {
+      // A new error is detected.
+      lastErrorIdx = changeIdx;
+      hasError = true;
+    }
+
+    if (hasError) error = textTyped.substring(lastErrorIdx);
+
+    if (!hasError && textTyped.length === this.state.textToType.length) {
+      const elapsed = new Date().getTime() - this.state.startTime;
+      const speed = this.state.textToType.length / ((elapsed / 1000 / 60) * 5);
+      this.handleGameFinish(speed);
+      return;
+    }
+
+    this.setState({
+      textTyped,
+      hasError,
+      lastErrorIdx,
+      error,
+      startTime
+    });
   };
+
+  getProgress() {
+    const { textToType, textTyped, lastErrorIdx } = this.state;
+    const goal = textToType.length;
+    return lastErrorIdx !== null
+      ? lastErrorIdx / goal
+      : textTyped.length / goal;
+  }
 
   handleGameFinish = speed => {
     const message = "Good job! You typed at <b>" + speed + " WPM</b>!";
@@ -85,16 +175,12 @@ class SinglePlayer extends Component {
 
     const passageIdx = generateIdx();
     const news = getTextToType(passageIdx);
-    const none = "";
-    const zero = 0;
     const cool = {
       passageIdx: passageIdx,
       textToType: news,
-      textTyped: none,
-      progress: zero,
-      typingStarted: false
+      textTyped: "",
+      startTime: null
     };
-    console.log(cool);
     this.setState(cool);
   };
 }

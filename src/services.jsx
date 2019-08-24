@@ -8,15 +8,16 @@ const passages = [
   "She cannot breathe, breathe, breathe. She cannot cry, cry, cry. Thats why she begs, begs, begs. She begs to die, die ,die..",
   "I'll come and make love to you at five o'clock. If I'm late start without me.",
   "It's so trendy, almost bleeding to death. All the cool girls are doing it."
-  */ "wow0",
-  "wow1",
-  "wow2",
-  "wow3",
-  "wow4",
-  "wow5",
-  "wow6",
-  "wow7",
-  "wow8"
+  */
+
+  "0 That's not Ok with me.",
+  "1 That is cool!",
+  "2 You are crazy... I like it.",
+  "3 Not enouge,h crazy in my life",
+  "4 lolicon.s",
+  "5 wowza1h,!",
+  "6 What are esther,s chances?",
+  "7 All the chances are her's"
 ];
 
 export function getTextToType(idx) {

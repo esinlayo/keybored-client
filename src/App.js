@@ -3,8 +3,13 @@ import socketIOClient from "socket.io-client";
 import "./App.css";
 
 import SinglePlayer from "./components/singlePlayer";
-import "bootstrap/dist/css/bootstrap.css";
-const nicka = "try to type me nicka";
+
+import AppBar from "@material-ui/core/AppBar";
+import { Switch, Route, Link } from "react-router-dom";
+
+import Index from "./components/index";
+
+//;;;;;;;import "bootstrap/dist/css/bootstrap.css";
 
 class App extends Component {
   constructor() {
@@ -25,8 +30,28 @@ class App extends Component {
     const socket = socketIOClient(endpoint);
     socket.on("FromAPI", data => this.setState({ response: data }));
   }
+
   render() {
-    return <SinglePlayer textToType={nicka} />;
+    return (
+      <React.Fragment>
+        <AppBar
+          color="primary"
+          position="static"
+          style={{ paddingLeft: "5%", width: "100%", marginBottom: 30 }}
+        >
+          <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+            <h1>keybored</h1>
+          </Link>
+        </AppBar>
+        <div id="app">
+          <Switch>
+            <Route path="/play" render={() => <SinglePlayer />} />
+            <Route path="/" exact component={Index} />
+          </Switch>
+        </div>
+      </React.Fragment>
+    );
   }
 }
+
 export default App;

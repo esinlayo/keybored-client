@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
-class TextToTypeBox extends Component {
+class TypeMeBox extends Component {
   render() {
     return (
       <div
-        id="textToTypebox"
+        id={this.props.id}
         className="form-control"
         style={{ position: "relative" }}
       >
@@ -14,7 +14,7 @@ class TextToTypeBox extends Component {
   }
 
   renderFeedback = () => {
-    const { textToType, lastErrorIdx, lastTypedIdx, error } = this.props;
+    const { textToType, lastErrorIdx, lastTypedIdx } = this.props;
     return (
       <React.Fragment>
         {[...textToType].map((c, idx) => {
@@ -38,12 +38,15 @@ class TextToTypeBox extends Component {
   };
 
   renderFeedback_weird = () => {
-    const { textToType, lastErrorIdx, lastTypedIdx, error } = this.props;
+    const { textToType, lastErrorIdx, error } = this.props;
     if (lastErrorIdx !== null) {
       return (
         <React.Fragment>
           {textToType.substring(0, lastErrorIdx)}
-          <span class="highlightError" style={{ position: "absolute" }}>
+          <span
+            className="highlightError"
+            style={{ position: "absolute", whiteSpace: "pre" }}
+          >
             {error}
           </span>
           {textToType.substring(lastErrorIdx)}
@@ -55,4 +58,4 @@ class TextToTypeBox extends Component {
   };
 }
 
-export default TextToTypeBox;
+export default TypeMeBox;

@@ -10,16 +10,17 @@ const passages = [
   "It's so trendy, almost bleeding to death. All the cool girls are doing it."
   */
 
-  "0 That's not Ok with me.",
-  "1 That is cool!",
-  "2 You are crazy... I like it.",
-  "3 Not enouge,h crazy in my life",
-  "4 lolicon.s",
-  "5 wowza1h,!",
-  "6 What are esther,s chances?",
-  "7 All the chances are her's",
-  "8 What are esther,s chances What are esther,s chances What are esther,s chances",
-  "9 sup"
+  "If you live to be 100, I hope I live to be 100 minus 1 day, so I never have to live without you.",
+  "What you do not want done to yourself, do not do to others.",
+  "Youth is the best time to be rich; and the best time to be poor.",
+  "Time is a funny thing. You can go through it and meddle with it, but nothing can stay permanent.",
+  "You have the right to be wrong.",
+  "Uncharted territory is a good place to be in",
+  "Poetic talent is really easy to fake when thy sentences doth no fucking sense make",
+  "When life gets you down, make a comforter.",
+  "If Jesus can walk on water can he swim on land?",
+  "What do you call a kid with no arms and an eyepatch? Names.",
+  "Quotes are for dumb people who can't think of something intelligent to say on their own."
 ];
 
 export function getTextToType(idx) {

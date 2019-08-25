@@ -25,11 +25,6 @@ class App extends Component {
       error: false
     };
   }
-  componentDidMount() {
-    const { endpoint } = this.state;
-    const socket = socketIOClient(endpoint);
-    socket.on("FromAPI", data => this.setState({ response: data }));
-  }
 
   render() {
     return (

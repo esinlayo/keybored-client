@@ -17,7 +17,9 @@ const passages = [
   "4 lolicon.s",
   "5 wowza1h,!",
   "6 What are esther,s chances?",
-  "7 All the chances are her's"
+  "7 All the chances are her's",
+  "8 What are esther,s chances What are esther,s chances What are esther,s chances",
+  "9 sup"
 ];
 
 export function getTextToType(idx) {

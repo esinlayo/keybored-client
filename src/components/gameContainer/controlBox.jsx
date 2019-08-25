@@ -1,51 +1,25 @@
 import React, { Component } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    float: "right",
-    flexDirection: "row",
-    background: "yellow"
-  },
-  formControl: {
-    display: "flex",
-    flexDirection: "row"
-  },
-  formControlLabel: {
-    margin: 0,
-    padding: 0
-  },
-  crazy: {
-    padding: 0
-  },
-  controlbutton: {
-    margin: 3
-  }
-}));
-
 const classes = {
-  root: {
-    float: "right",
-    flexDirection: "row",
-    background: "yellow"
-  },
   formControl: {
+    float: "right",
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
+    backgroundColor: "turquoise"
   },
   formControlLabel: {
     margin: 0,
     padding: 0
   },
-  crazy: {
+  checkboxesRemovePadding: {
     padding: 0
   },
-  controlbutton: {
+  controlbuttonsAddPadding: {
     margin: 3
   }
 };
@@ -56,60 +30,59 @@ export default class ControlBox extends Component {
       this.props.onOptionsChange({ [name]: event.target.checked });
     };
 
-    const capsEnabled = this.props.capsEnabled;
-    const punctuationEnabled = this.props.punctuationEnabled;
+    const { capsEnabled, punctuationEnabled } = this.props.nextPassageSettings;
 
     return (
-      <div id="controlBox" className={classes.root}>
-        <div style={classes.root}>
-          <FormControl component="fieldset" style={classes.formControl}>
-            <Button
-              style={classes.controlbutton}
-              size="small"
-              color="secondary"
-              variant="outlined"
-              disabled={this.props.startTime === null}
-              onClick={this.props.onRestart}
-            >
-              Restart
-            </Button>
-            <Button
-              style={classes.controlbutton}
-              size="small"
-              color="secondary"
-              variant="outlined"
-              onClick={this.props.onNewPassage}
-            >
-              New Passage
-            </Button>
-            <FormGroup>
-              <FormControlLabel
-                style={classes.formControlLabel}
-                control={
-                  <Checkbox
-                    style={classes.crazy}
-                    checked={capsEnabled}
-                    onChange={handleChange("capsEnabled")}
-                    m={0}
-                  />
-                }
-                label="Capital Letters"
+      <FormControl component="fieldset" id="controlBox">
+        <Button
+          style={classes.controlbuttonsAddPadding}
+          size="small"
+          color="primary"
+          variant="contained"
+          disabled={this.props.startTime === null}
+          onClick={this.props.onRestart}
+        >
+          Restart
+        </Button>
+        <Button
+          style={classes.controlbuttonsAddPadding}
+          size="small"
+          color="primary"
+          variant="contained"
+          onClick={this.props.onNewPassage}
+        >
+          New Passage
+        </Button>
+        <FormGroup>
+          <FormControlLabel
+            style={classes.formControlLabel}
+            m={0}
+            p={0}
+            control={
+              <Checkbox
+                style={classes.checkboxesRemovePadding}
+                color="primary"
+                checked={capsEnabled}
+                onChange={handleChange("capsEnabled")}
+                m={0}
               />
-              <FormControlLabel
-                style={classes.formControlLabel}
-                control={
-                  <Checkbox
-                    style={classes.crazy}
-                    checked={punctuationEnabled}
-                    onChange={handleChange("punctuationEnabled")}
-                  />
-                }
-                label="Punctuation"
+            }
+            label="Capital Letters"
+          />
+          <FormControlLabel
+            style={classes.formControlLabel}
+            control={
+              <Checkbox
+                style={classes.checkboxesRemovePadding}
+                color="primary"
+                checked={punctuationEnabled}
+                onChange={handleChange("punctuationEnabled")}
               />
-            </FormGroup>
-          </FormControl>
-        </div>
-      </div>
+            }
+            label="Punctuation"
+          />
+        </FormGroup>
+      </FormControl>
     );
   }
 }

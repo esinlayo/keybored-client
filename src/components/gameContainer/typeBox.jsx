@@ -67,6 +67,7 @@ class TypeBox extends Component {
       <div id="typebox">
         <TypeMeBox
           id="typeMeBox"
+          className="typeBoxFont"
           textToType={this.props.textToType}
           lastErrorIdx={lastErrorIdx}
           lastTypedIdx={lastTypedIdx}
@@ -76,6 +77,7 @@ class TypeBox extends Component {
           autoFocus
           className="form-control transparent-input"
           id="typedInputBox"
+          className="typeBoxFont"
           type="text"
           spellCheck="false"
           autoComplete="off"

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import socketIOClient from "socket.io-client";
 import "./App.css";
+import "typeface-roboto";
 
 import SinglePlayer from "./components/singlePlayer";
 

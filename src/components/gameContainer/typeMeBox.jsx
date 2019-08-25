@@ -5,7 +5,7 @@ class TypeMeBox extends Component {
     return (
       <div
         id={this.props.id}
-        className="form-control"
+        className={"form-control " + this.props.className}
         style={{ position: "relative" }}
       >
         {this.renderFeedback_weird()}

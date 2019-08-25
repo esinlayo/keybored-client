@@ -1,42 +1,77 @@
 .gameContainer {
-  background-color: purple;
   text-align: center;
+  display: inline-block;
+  width: 70%;
+  border-style: solid;
+  border-width: 5px;
+  border-radius: 10px;
+  border-color: #3f51b5;
+  min-height: 500px;
 }
 
-.progressContainer {
+#progressContainer {
   position: relative;
-  width: 70%;
+  width: 100%;
   display: inline-block;
-  background-color: blue;
+  background-image: url("https://i.imgur.com/xNH3nHW.png");
   text-align: left;
+}
+
+#scoresAndControlContainer {
+  width: 100%;
+  display: inline-block;
+  text-align: right;
+  vertical-align: bottom;
+  position: relative;
+  padding-bottom: 20px;
 }
 
 #controlBox {
-  text-align: right;
+  float: right;
+  flex-direction: row;
+}
+
+.scoreMiniBox {
   display: inline-block;
-  width: 70%;
-  background-color: pink;
+  padding-right: 3%;
+}
+.textSayingScore {
+  padding-right: 3px;
+  white-space: nowrap;
+}
+.textScoreValue {
+  font-size: 24px;
+  padding: 3px;
+}
+
+#scoresBox {
+  display: inline-block;
+  padding-right: 1%;
 }
 
 #instructions {
+  width: 100%;
   text-align: left;
   display: inline-block;
-  background: red;
-  width: 70%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
 }
 
-#typebox {
+#typeboxContainer {
   position: relative;
-  width: 70%;
-  background-color: green;
+  width: 100%;
   text-align: left;
   display: inline-block;
 }
-
-#typeMeBox {
+.typeBoxFont {
   font-size: 24px;
-  font-family: "Times New Roman", Times, serif;
-  color: gray;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+#typeMeBox {
+  color: #c0c0c0;
   position: absolute;
   left: 5%;
   width: 90%;
@@ -47,7 +82,6 @@
   user-select: none; /* Standard */
   word-break: break-all;
 }
-
 #typedInputBox {
   position: absolute;
   left: 5%;
@@ -55,8 +89,6 @@
   top: 0;
   background-color: rgba(0, 0, 0, 0) !important;
   border: none !important;
-  font-size: 24px;
-  font-family: "Times New Roman", Times, serif;
   margin: 0;
   outline: none;
   width: 90%;

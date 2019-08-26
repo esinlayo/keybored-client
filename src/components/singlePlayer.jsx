@@ -14,6 +14,7 @@ import Typography from "@material-ui/core/Typography";
 class SinglePlayer extends Component {
   constructor() {
     super();
+    this.typedInputBox = React.createRef();
     const passageIdx = generateIdx();
     this.state = {
       passageIdx: passageIdx,
@@ -66,6 +67,7 @@ class SinglePlayer extends Component {
             autoFocus
             className="typeBox form-control transparent-input"
             id="typedInputBox"
+            ref={this.typedInputBox}
             type="text"
             spellCheck="false"
             autoComplete="off"
@@ -94,6 +96,7 @@ class SinglePlayer extends Component {
     const nextPassageSettings = { ...this.state.nextPassageSettings, ...x };
     this.setState({ nextPassageSettings });
     if (this.state.textTyped === "") this.handleRestart(nextPassageSettings);
+    this.typedInputBox.current.focus();
   };
 
   handleRestart = newSettings => {
@@ -106,6 +109,7 @@ class SinglePlayer extends Component {
       error: "",
       startTime: null
     });
+    this.typedInputBox.current.focus();
   };
 
   handleNewPassage = newSettings => {
@@ -117,6 +121,7 @@ class SinglePlayer extends Component {
       error: "",
       startTime: null
     });
+    this.typedInputBox.current.focus();
   };
 
   getTransformed = (text, newSettings) => {

@@ -26,6 +26,10 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    document.title = "keybored";
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -41,7 +45,7 @@ class App extends Component {
         <div id="app">
           <Switch>
             <Route path="/play" render={() => <SinglePlayer />} />
-            <Route path="/" exact component={Index} />
+            <Route path="/" render={() => <SinglePlayer />} />
           </Switch>
         </div>
       </React.Fragment>

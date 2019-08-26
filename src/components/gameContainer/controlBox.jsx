@@ -6,22 +6,18 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 
 const classes = {
-  formControl: {
-    float: "right",
-    display: "flex",
-    flexDirection: "row",
-    backgroundColor: "turquoise"
-  },
   formControlLabel: {
-    margin: 0,
+    marginLeft: 1,
     padding: 0
   },
   checkboxesRemovePadding: {
     padding: 0
   },
-  controlbuttonsAddPadding: {
-    margin: 3
-  }
+  controlbuttons: {
+    margin: 3,
+    display: "inline-block"
+  },
+  inline: { display: "inline-block", textAlign: "left" }
 };
 
 export default class ControlBox extends Component {
@@ -33,56 +29,83 @@ export default class ControlBox extends Component {
     const { capsEnabled, punctuationEnabled } = this.props.nextPassageSettings;
 
     return (
-      <FormControl component="fieldset" id="controlBox">
-        <Button
-          style={classes.controlbuttonsAddPadding}
-          size="small"
-          color="primary"
-          variant="contained"
-          disabled={this.props.startTime === null}
-          onClick={this.props.onRestart}
+      <React.Fragment>
+        <span
+          style={{
+            display: "inline-block",
+            verticalAlign: "middle"
+          }}
         >
-          Restart
-        </Button>
-        <Button
-          style={classes.controlbuttonsAddPadding}
-          size="small"
-          color="primary"
-          variant="contained"
-          onClick={this.props.onNewPassage}
+          <Button
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle",
+              margin: "4px"
+            }}
+            className="controlElement controlButton"
+            size="small"
+            color="primary"
+            variant="contained"
+            disabled={this.props.startTime === null}
+            onClick={this.props.onRestart}
+          >
+            Restart
+          </Button>
+          <Button
+            style={{
+              display: "inline-block",
+              verticalAlign: "middle",
+              margin: "4px"
+            }}
+            className="controlElement controlButton"
+            size="small"
+            color="primary"
+            variant="contained"
+            onClick={this.props.onNewPassage}
+          >
+            New Passage
+          </Button>
+        </span>
+        <div
+          style={{
+            display: "inline-block",
+            verticalAlign: "middle"
+          }}
         >
-          New Passage
-        </Button>
-        <FormGroup>
-          <FormControlLabel
-            style={classes.formControlLabel}
-            m={0}
-            p={0}
-            control={
-              <Checkbox
-                style={classes.checkboxesRemovePadding}
-                color="primary"
-                checked={capsEnabled}
-                onChange={handleChange("capsEnabled")}
-                m={0}
-              />
-            }
-            label="Capital Letters"
-          />
-          <FormControlLabel
-            style={classes.formControlLabel}
-            control={
-              <Checkbox
-                style={classes.checkboxesRemovePadding}
-                color="primary"
-                checked={punctuationEnabled}
-                onChange={handleChange("punctuationEnabled")}
-              />
-            }
-            label="Punctuation"
-          />
-        </FormGroup>
-      </FormControl>
+          <FormGroup
+            style={{
+              display: "inline-block",
+              textAlign: "left"
+            }}
+          >
+            <FormControlLabel
+              style={classes.formControlLabel}
+              control={
+                <Checkbox
+                  style={classes.checkboxesRemovePadding}
+                  color="primary"
+                  checked={capsEnabled}
+                  onChange={handleChange("capsEnabled")}
+                />
+              }
+              label="Capital Letters"
+            />
+            <br />
+            <FormControlLabel
+              style={classes.formControlLabel}
+              control={
+                <Checkbox
+                  style={classes.checkboxesRemovePadding}
+                  color="primary"
+                  checked={punctuationEnabled}
+                  onChange={handleChange("punctuationEnabled")}
+                />
+              }
+              label="Punctuation"
+            />
+          </FormGroup>
+        </div>
+      </React.Fragment>
     );
   }
 }

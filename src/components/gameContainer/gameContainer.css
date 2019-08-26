@@ -12,41 +12,34 @@
 #progressContainer {
   position: relative;
   width: 100%;
-  display: inline-block;
   background-image: url("https://i.imgur.com/xNH3nHW.png");
   text-align: left;
 }
 
 #scoresAndControlContainer {
   width: 100%;
-  display: inline-block;
   text-align: right;
-  vertical-align: bottom;
-  position: relative;
-  padding-bottom: 20px;
-}
-
-#controlBox {
-  float: right;
-  flex-direction: row;
-}
-
-.scoreMiniBox {
+  vertical-align: top;
   display: inline-block;
-  padding-right: 3%;
-}
-.textSayingScore {
-  padding-right: 3px;
-  white-space: nowrap;
-}
-.textScoreValue {
-  font-size: 24px;
-  padding: 3px;
+  position: relative;
+  padding-top: 0;
+  padding-bottom: 5%;
 }
 
 #scoresBox {
   display: inline-block;
-  padding-right: 1%;
+  margin-right: 2%;
+  vertical-align: middle;
+}
+
+.scoreMiniBox {
+  display: block;
+}
+.textSayingScore {
+  white-space: nowrap;
+}
+.textScoreValue {
+  padding: 0;
 }
 
 #instructions {

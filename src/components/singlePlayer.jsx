@@ -16,15 +16,18 @@ class SinglePlayer extends Component {
     super();
     this.typedInputBox = React.createRef();
     const passageIdx = generateIdx();
+    const nextPassageSettings = {
+      capsEnabled: true,
+      punctuationEnabled: false
+    };
     this.state = {
       passageIdx: passageIdx,
-      textToType: getTextToType(passageIdx),
+      textToType: this.getTransformed(
+        getTextToType(passageIdx),
+        nextPassageSettings
+      ),
       textTyped: "",
-      nextPassageSettings: {
-        capsEnabled: true,
-        punctuationEnabled: true
-      },
-
+      nextPassageSettings,
       prevScore: null,
       startTime: null,
       lastErrorIdx: null,
@@ -40,6 +43,10 @@ class SinglePlayer extends Component {
       <div className="gameContainer">
         <ProgressContainer progress={this.getProgress()} />
         <div id="scoresAndControlContainer">
+          <ScoresBox
+            score={this.state.score}
+            highScore={this.state.highScore}
+          />
           <ControlBox
             onOptionsChange={this.handleOptions}
             onRestart={go => this.handleRestart()}
@@ -47,7 +54,6 @@ class SinglePlayer extends Component {
             startTime={this.state.startTime}
             nextPassageSettings={this.state.nextPassageSettings}
           />
-          {this.renderScoresBox()}
         </div>
 
         <Instructions startTime={this.state.startTime} />
@@ -143,15 +149,6 @@ class SinglePlayer extends Component {
 
     return transformedText;
   };
-
-  renderScoresBox = () => {
-    if (this.state.score !== null) {
-      return (
-        <ScoresBox score={this.state.score} highScore={this.state.highScore} />
-      );
-    }
-  };
-  ts;
 
   handleChange = ({ currentTarget: input }) => {
     console.log(input.value);

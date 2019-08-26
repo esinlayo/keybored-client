@@ -19,8 +19,11 @@ const passages = [
   "Poetic talent is really easy to fake when thy sentences doth no fucking sense make",
   "When life gets you down, make a comforter.",
   "If Jesus can walk on water can he swim on land?",
-  "What do you call a kid with no arms and an eyepatch? Names.",
   "Quotes are for dumb people who can't think of something intelligent to say on their own."
+
+  /*
+  "What do you call a kid with no arms and an eyepatch? Names. What do you call a kid with no arms and an eyepatch? Names."
+  */
 ];
 
 export function getTextToType(idx) {

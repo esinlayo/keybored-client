@@ -3,10 +3,13 @@ import React, { Component } from "react";
 import ProgressContainer from "./gameContainer/progressContainer";
 import ControlBox from "./gameContainer/controlBox";
 import ScoresBox from "./gameContainer/scoresBox";
+import Instructions from "./gameContainer/instructions";
 import TypeMeBox from "./gameContainer/typeMeBox";
 import "./gameContainer/gameContainer.css";
 
 import { getTextToType, generateIdx } from "../services.jsx";
+
+import Typography from "@material-ui/core/Typography";
 
 class SinglePlayer extends Component {
   constructor() {
@@ -46,24 +49,29 @@ class SinglePlayer extends Component {
           {this.renderScoresBox()}
         </div>
 
-        <div id="instructions">{this.renderHelpMessage()}</div>
+        <Instructions startTime={this.state.startTime} />
         <div id="typeboxContainer">
-          <TypeMeBox
-            className="typeBoxFont"
+          <Typography
+            variant="h6"
+            component={TypeMeBox}
             id="typeMeBox"
+            className="typeBox"
             textToType={this.state.textToType}
             lastErrorIdx={this.state.lastErrorIdx}
             error={this.state.error}
           />
-          <textarea
+          <Typography
+            variant="h6"
+            component="textarea"
             autoFocus
-            className="form-control transparent-input typeBoxFont"
+            className="typeBox form-control transparent-input"
             id="typedInputBox"
             type="text"
             spellCheck="false"
             autoComplete="off"
             onPaste={e => e.preventDefault()}
             onKeyPress={e => {
+              // disable return(enter) key
               if (e.keyCode === 13 || e.which === 13) e.preventDefault();
             }}
             onChange={this.handleChange}
@@ -121,7 +129,7 @@ class SinglePlayer extends Component {
     if (!capsEnabled) transformedText = transformedText.toLowerCase();
     if (!punctuationEnabled)
       transformedText = transformedText.replace(
-        /['".,/#!$%^&*;:{}=\-_`~()]/g,
+        /['".,/#!$%^&*;:{}=\-_`~()?]/g,
         ""
       );
 
@@ -135,15 +143,7 @@ class SinglePlayer extends Component {
       );
     }
   };
-
-  renderHelpMessage = () => {
-    if (this.state.startTime) return "";
-    return (
-      <span style={{ padding: "10px" }}>
-        {"The game will start when you begin typing in the box below!"}
-      </span>
-    );
-  };
+  ts;
 
   handleChange = ({ currentTarget: input }) => {
     console.log(input.value);

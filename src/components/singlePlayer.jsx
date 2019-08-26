@@ -56,7 +56,7 @@ class SinglePlayer extends Component {
             variant="h6"
             component={TypeMeBox}
             id="typeMeBox"
-            className="typeBox"
+            className="typeBox typeBoxWrapping"
             textToType={this.state.textToType}
             lastErrorIdx={this.state.lastErrorIdx}
             error={this.state.error}
@@ -65,12 +65,15 @@ class SinglePlayer extends Component {
             variant="h6"
             component="textarea"
             autoFocus
-            className="typeBox form-control transparent-input"
+            className="typeBox typeBoxWrapping form-control transparent-input"
             id="typedInputBox"
             ref={this.typedInputBox}
             type="text"
             spellCheck="false"
             autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            autoCorrect="off"
             onPaste={e => e.preventDefault()}
             onKeyPress={e => {
               // disable return(enter) key

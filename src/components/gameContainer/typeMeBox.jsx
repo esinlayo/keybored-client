@@ -42,14 +42,9 @@ class TypeMeBox extends Component {
     if (lastErrorIdx !== null) {
       return (
         <React.Fragment>
-          {textToType.substring(0, lastErrorIdx)}
-          <span
-            className="highlightError"
-            style={{ position: "absolute", whiteSpace: "pre" }}
-          >
-            {error}
-          </span>
-          {textToType.substring(lastErrorIdx)}
+          <span>{textToType.substring(0, lastErrorIdx)}</span>
+          <span className="highlightError typeBoxWrapping">{error}</span>
+          <span>{textToType.substring(lastErrorIdx)}</span>
         </React.Fragment>
       );
     } else {

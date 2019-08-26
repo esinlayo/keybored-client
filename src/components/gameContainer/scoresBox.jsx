@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 
 const ScoresBox = props => {
-  if (1 === 1) {
+  if (props.highScore) {
     return (
       <div id="scoresBox">
         <div className="scoreMiniBox">

@@ -16,9 +16,9 @@ const passages = [
   "Time is a funny thing. You can go through it and meddle with it, but nothing can stay permanent.",
   "You have the right to be wrong.",
   "Uncharted territory is a good place to be in.",
-  "Poetic talent is really easy to fake when thy sentences doth no fucking sense make",
+  "Poetic talent is really easy to fake when thy sentences doth no sense make",
   "When life gets you down, make a comforter.",
-  "If Jesus can walk on water can he swim on land?",
+  "If Jesus can walk on water, can he swim on land?",
   "What do you call a kid with no arms and an eyepatch? Names.",
   "Quotes are for dumb people who can't think of something intelligent to say on their own."
 

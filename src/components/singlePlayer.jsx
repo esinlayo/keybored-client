@@ -18,7 +18,7 @@ class SinglePlayer extends Component {
     const passageIdx = generateIdx();
     const nextPassageSettings = {
       capsEnabled: true,
-      punctuationEnabled: false
+      punctuationEnabled: true
     };
     this.state = {
       passageIdx: passageIdx,
@@ -79,7 +79,6 @@ class SinglePlayer extends Component {
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="off"
-            autoCorrect="off"
             onPaste={e => e.preventDefault()}
             onKeyPress={e => {
               // disable return(enter) key

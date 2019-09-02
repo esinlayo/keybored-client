@@ -4,12 +4,10 @@ import ProgressContainer from "./gameContainer/progressContainer";
 import ControlBox from "./gameContainer/controlBox";
 import ScoresBox from "./gameContainer/scoresBox";
 import Instructions from "./gameContainer/instructions";
-import TypeMeBox from "./gameContainer/typeMeBox";
+import TypeBoxContainer from "./gameContainer/typeBoxContainer";
 import "./gameContainer/gameContainer.css";
 
 import { getTextToType, generateIdx } from "../services.jsx";
-
-import Typography from "@material-ui/core/Typography";
 
 class SinglePlayer extends Component {
   constructor() {
@@ -55,39 +53,15 @@ class SinglePlayer extends Component {
             nextPassageSettings={this.state.nextPassageSettings}
           />
         </div>
-
         <Instructions startTime={this.state.startTime} />
-        <div id="typeboxContainer">
-          <Typography
-            variant="h6"
-            component={TypeMeBox}
-            id="typeMeBox"
-            className="typeBox typeBoxWrapping"
-            textToType={this.state.textToType}
-            lastErrorIdx={this.state.lastErrorIdx}
-            error={this.state.error}
-          />
-          <Typography
-            variant="h6"
-            component="textarea"
-            autoFocus
-            className="typeBox typeBoxWrapping form-control transparent-input"
-            id="typedInputBox"
-            ref={this.typedInputBox}
-            type="text"
-            spellCheck="false"
-            autoComplete="off"
-            autoCorrect="off"
-            autoCapitalize="off"
-            onPaste={e => e.preventDefault()}
-            onKeyPress={e => {
-              // disable return(enter) key
-              if (e.keyCode === 13 || e.which === 13) e.preventDefault();
-            }}
-            onChange={this.handleChange}
-            value={this.state.textTyped}
-          />
-        </div>
+        <TypeBoxContainer
+          textToType={this.state.textToType}
+          textTyped={this.state.textTyped}
+          lastErrorIdx={this.state.lastErrorIdx}
+          error={this.state.error}
+          typedInputBox={this.typedInputBox}
+          handleChange={this.handleChange}
+        />
       </div>
     );
   }

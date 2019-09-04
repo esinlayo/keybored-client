@@ -28,7 +28,7 @@ export default class ControlBox extends Component {
     const { capsEnabled, punctuationEnabled } = this.props.nextPassageSettings;
 
     return (
-      <React.Fragment>
+      <div id="controlBox">
         <span
           style={{
             display: "inline",
@@ -104,7 +104,7 @@ export default class ControlBox extends Component {
             />
           </FormGroup>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

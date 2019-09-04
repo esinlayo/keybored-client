@@ -19,7 +19,7 @@
 /* styles related to scorebox */
 #scoresBox {
   margin-right: 2%;
-  vertical-align: middle;
+  vertical-align: top;
   display: inline-block;
 }
 .scoreMiniBox {
@@ -30,6 +30,13 @@
 }
 .textScoreValue {
   padding: 0;
+}
+
+/* styles related to controlbox */
+#controlBox {
+  margin-right: 2%;
+  vertical-align: middle;
+  display: inline;
 }
 
 /* styles related to instructions */

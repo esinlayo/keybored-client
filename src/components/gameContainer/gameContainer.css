@@ -9,28 +9,19 @@
   min-height: 500px;
 }
 
+/* styles related to progress container */
 #progressContainer {
   position: relative;
   width: 100%;
   text-align: left;
 }
 
-#scoresAndControlContainer {
-  width: 100%;
-  text-align: right;
-  vertical-align: top;
-  display: inline-block;
-  position: relative;
-  padding-top: 0;
-  padding-bottom: 5%;
-}
-
+/* styles related to scorebox */
 #scoresBox {
-  display: inline-block;
   margin-right: 2%;
   vertical-align: middle;
+  display: inline-block;
 }
-
 .scoreMiniBox {
   display: block;
 }
@@ -41,14 +32,21 @@
   padding: 0;
 }
 
+/* styles related to instructions */
 #instructions {
   width: 100%;
   text-align: left;
-  display: inline-block;
+  display: block;
   margin: 0% 2%;
-  padding: 0;
+  padding-top: 5px;
 }
 
+/* styles related to typebox */
+#typeBox {
+  margin-right: 2%;
+  vertical-align: middle;
+  display: inline;
+}
 #typeboxContainer {
   position: relative;
   width: 100%;

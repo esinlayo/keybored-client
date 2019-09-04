@@ -31,7 +31,7 @@ export default class ControlBox extends Component {
       <React.Fragment>
         <span
           style={{
-            display: "inline-block",
+            display: "inline",
             verticalAlign: "middle"
           }}
         >

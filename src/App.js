@@ -42,6 +42,7 @@ class App extends Component {
             <h1>keybored</h1>
           </Link>
         </AppBar>
+
         <div id="app">
           <Switch>
             <Route path="/play" render={() => <SinglePlayer />} />

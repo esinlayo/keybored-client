@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import "./App.css";
 import "typeface-roboto";
 
-import SinglePlayer from "./components/singlePlayer";
-
 import AppBar from "@material-ui/core/AppBar";
 import { Switch, Route, Link } from "react-router-dom";
 
-import Index from "./components/index";
+import ModeSelection from "./components/modeSelection";
+import SinglePlayer from "./components/singlePlayer";
+import PlayWithFriends from "./components/playWithFriends.jsx";
 import NotFound from "./components/notFound";
 
 //;;;;;;;import "bootstrap/dist/css/bootstrap.css";
@@ -43,8 +43,13 @@ class App extends Component {
           <Switch>
             <Route path="/play" render={() => <SinglePlayer />} />
             {/*<Route path="/multiplayer" render={() => <SinglePlayer />} />*/}
-            <Route path="/playwithfriends" render={() => <SinglePlayer />} />
-            <Route path="/" exact render={() => <Index />} />
+            <Route
+              path="/playwithfriends"
+              exact
+              render={() => <PlayWithFriends />}
+            />
+
+            <Route path="/" exact render={() => <ModeSelection />} />
             <Route path="/" render={() => <NotFound />} />
           </Switch>
         </div>

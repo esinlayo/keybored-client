@@ -9,10 +9,12 @@ const Index = () => {
         <MyButtonComponent text="Single player" />
       </Link>
       <br />
+      {/*
       <Link to="/multiplayer">
         <MyButtonComponent text="Multi player" />
       </Link>
       <br />
+       */}
       <Link to="/playwithfriends">
         <MyButtonComponent text="Invite friends to play" />
       </Link>

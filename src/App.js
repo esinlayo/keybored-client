@@ -8,6 +8,7 @@ import AppBar from "@material-ui/core/AppBar";
 import { Switch, Route, Link } from "react-router-dom";
 
 import Index from "./components/index";
+import NotFound from "./components/notFound";
 
 //;;;;;;;import "bootstrap/dist/css/bootstrap.css";
 
@@ -25,11 +26,6 @@ class App extends Component {
       error: false
     };
   }
-
-  componentDidMount() {
-    document.title = "keybored";
-  }
-
   render() {
     return (
       <React.Fragment>
@@ -46,7 +42,10 @@ class App extends Component {
         <div id="app">
           <Switch>
             <Route path="/play" render={() => <SinglePlayer />} />
-            <Route path="/" render={() => <SinglePlayer />} />
+            {/*<Route path="/multiplayer" render={() => <SinglePlayer />} />*/}
+            <Route path="/playwithfriends" render={() => <SinglePlayer />} />
+            <Route path="/" exact render={() => <Index />} />
+            <Route path="/" render={() => <NotFound />} />
           </Switch>
         </div>
       </React.Fragment>

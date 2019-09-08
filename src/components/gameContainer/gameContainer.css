@@ -14,6 +14,8 @@
   position: relative;
   width: 100%;
   text-align: left;
+  min-height: 5rem;
+  vertical-align: text-bottom;
 }
 
 /* styles related to scorebox */

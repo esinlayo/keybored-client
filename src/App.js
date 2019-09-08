@@ -43,11 +43,7 @@ class App extends Component {
           <Switch>
             <Route path="/play" render={() => <SinglePlayer />} />
             {/*<Route path="/multiplayer" render={() => <SinglePlayer />} />*/}
-            <Route
-              path="/playwithfriends"
-              exact
-              render={() => <PlayWithFriends />}
-            />
+            <Route path="/playwithfriends" render={() => <PlayWithFriends />} />
 
             <Route path="/" exact render={() => <ModeSelection />} />
             <Route path="/" render={() => <NotFound />} />

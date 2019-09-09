@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import ProgressContainer from "./gameContainer/progressContainer";
 import ScoresBox from "./gameContainer/scoresBox";
-import Instructions from "./gameContainer/instructions";
 import TypeBox from "./gameContainer/typeBox";
 import "./gameContainer/gameContainer.css";
 

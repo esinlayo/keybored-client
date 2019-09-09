@@ -31,8 +31,6 @@ const Index = () => {
 };
 
 function MyButtonComponent(props) {
-  const { classes } = props;
-
   return (
     <Button
       variant="contained"

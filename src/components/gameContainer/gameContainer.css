@@ -6,7 +6,7 @@
   border-width: 5px;
   border-radius: 10px;
   border-color: #3f51b5;
-  min-height: 500px;
+  min-height: 300px;
   margin-bottom: 15px;
 }
 
@@ -92,4 +92,58 @@
 .highlightError {
   background: red;
   display: inline;
+}
+
+#leaderboards {
+  overflow: scroll;
+  text-align: center;
+  width: 100%;
+}
+.leaderboard {
+  display: inline-block;
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 6px;
+  border-color: #3f51b5;
+  margin: 2px;
+  white-space: nowrap;
+}
+
+@-webkit-keyframes invalid {
+  from {
+    color: white;
+  }
+  to {
+    color: #3f51b5;
+  }
+}
+@-moz-keyframes invalid {
+  from {
+    color: white;
+  }
+  to {
+    color: #3f51b5;
+  }
+}
+@-o-keyframes invalid {
+  from {
+    color: white;
+  }
+  to {
+    color: #3f51b5;
+  }
+}
+@keyframes invalid {
+  from {
+    color: white;
+  }
+  to {
+    color: #3f51b5;
+  }
+}
+.newScoreEffect {
+  -webkit-animation: invalid 3s 1; /* Safari 4+ */
+  -moz-animation: invalid 3s 1; /* Fx 5+ */
+  -o-animation: invalid 3s 1; /* Opera 12+ */
+  animation: invalid 3s 1; /* IE 10+ */
 }

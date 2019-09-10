@@ -34,3 +34,37 @@ export function getTextToType(idx) {
 export function generateIdx() {
   return Math.floor(Math.random() * (passages.length - 1));
 }
+
+const adjectives = [
+  "Cute",
+  "Smol",
+  "Tol",
+  "Elusive",
+  "Magestic",
+  "Thundrous",
+  "Voluptuous",
+  "Sworn",
+  "Sir",
+  "Madam"
+];
+const beings = [
+  "Meme",
+  "Overlord",
+  "Lord",
+  "Ice Cream",
+  "Booger",
+  "Hackerman",
+  "Clown",
+  "Train",
+  "Trainwreck",
+  "Popsicle",
+  "Pickle",
+  "Bagel",
+  "Flower"
+];
+
+export function generateRandomLeaderboardName() {
+  const adj = adjectives[Math.floor(Math.random() * (adjectives.length - 1))];
+  const being = beings[Math.floor(Math.random() * (beings.length - 1))];
+  return `${adj} ${being}`;
+}

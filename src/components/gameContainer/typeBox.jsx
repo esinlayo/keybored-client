@@ -81,8 +81,6 @@ class TypeBox extends Component {
       // A new error is detected.
       lastErrorIdx = changeIdx;
       hasError = true;
-
-      console.log(typedChar, charToType);
     }
 
     if (hasError) error = textTyped.substring(lastErrorIdx);

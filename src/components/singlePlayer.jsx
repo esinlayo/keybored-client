@@ -24,20 +24,15 @@ class SinglePlayer extends Component {
       score: null,
       highScore: null,
 
-      leaderboard2Days: [],
-      leaderboardAllTime: []
+      enableScoreSubmission: true,
+      nameForScores: generateRandomLeaderboardName(),
+      mostRecentScores: [],
+      leaderboard2Days: []
     };
   }
 
   async componentDidMount() {
-    console.log("a");
-    const getLeaderboard = await this.updateLeaderBoard();
-    console.log("c");
-  }
-
-  async updateLeaderBoard() {
-    const { data: leaderboard2Days } = await axios.get(scoresapi);
-    this.setState({ leaderboard2Days });
+    await this.updateLeaderboards();
   }
 
   render() {
@@ -55,6 +50,13 @@ class SinglePlayer extends Component {
               onGameFinish={this.handleGameFinish}
               onGameStart={this.handleGameStart}
               startTime={this.state.startTime}
+              onLeaderboardNameChange={this.handleLeaderboardNameChange}
+              nameForScores={this.state.nameForScores}
+              enableScoreSubmission={this.state.enableScoreSubmission}
+              onChangeScoreSubmissionSettings={
+                this.handleChangeScoreSubmissionSettings
+              }
+              leaderboardRetrieved={this.state.mostRecentScores.length !== 0}
             />
           </div>
         </div>
@@ -64,17 +66,16 @@ class SinglePlayer extends Component {
   }
 
   renderLeaderboards() {
-    if (1)
-      //if (this.state.leaderboard2Days.length > 0)
-      return (
-        <div className="gameContainer">
-          <Leaderboards
-            leaderboard2Days={this.state.leaderboard2Days}
-            leaderboardAllTime={this.state.leaderboardAllTime}
-          />
-        </div>
-      );
-    else return "";
+    //if (this.state.mostRecentScores.length > 0)
+    return (
+      <div className="gameContainer">
+        <Leaderboards
+          mostRecentScores={this.state.mostRecentScores}
+          leaderboard2Days={this.state.leaderboard2Days}
+        />
+      </div>
+    );
+    //else return "";
   }
 
   handleChange = progress => {
@@ -85,24 +86,79 @@ class SinglePlayer extends Component {
     this.setState({ startTime: new Date().getTime() });
   };
 
-  handleGameFinish = async speed => {
+  handleGameFinish = speed => {
     if (speed) {
       if (speed > this.state.highScore) this.setState({ highScore: speed });
       this.setState({ score: speed });
 
-      try {
-        const coolname = generateRandomLeaderboardName();
-        const score = Math.round(speed);
-        const entry = await axios.post(scoresapi, {
-          name: coolname,
-          score: score
-        });
-        this.updateLeaderBoard();
-      } catch (ex) {
-        console.log("err");
-      }
+      if (this.state.enableScoreSubmission) this.submitScores(speed);
     }
     this.setState({ startTime: null, progress: 0 });
+  };
+
+  async submitScores(speed) {
+    const scoreEntry = {
+      name: this.state.nameForScores,
+      score: Math.round(speed)
+    };
+    try {
+      await axios.post(scoresapi, scoreEntry);
+      this.updateLeaderboards(speed);
+    } catch (ex) {
+      console.log(ex);
+    }
+  }
+
+  async updateLeaderboards(score) {
+    const origMostRecent = this.state.mostRecentScores;
+    const orig2Days = this.state.leaderboard2Days;
+
+    if (score) this.leaderboardsOptimisticUpdate(score);
+
+    try {
+      const { data } = await axios.get(scoresapi);
+      const { mostRecentScores, topScores } = data;
+      this.setState({ leaderboard2Days: topScores, mostRecentScores });
+    } catch (ex) {
+      alert("top wa");
+      this.setState({
+        leaderboard2Days: orig2Days,
+        mostRecentScores: origMostRecent
+      });
+    }
+  }
+
+  leaderboardsOptimisticUpdate(score) {
+    const origMostRecent = this.state.mostRecentScores;
+    const orig2Days = this.state.leaderboard2Days;
+    const scoreEntry = {
+      name: this.state.nameForScores,
+      score,
+      date: JSON.stringify(new Date(Date.now()))
+    };
+
+    let mostRecentScores = [
+      scoreEntry,
+      ...origMostRecent.slice(0, origMostRecent.length)
+    ];
+    if (mostRecentScores.length > 10)
+      mostRecentScores = mostRecentScores.slice(0, 10);
+
+    const replacementIdx = orig2Days.findIndex(e => e < score);
+    if (replacementIdx !== -1)
+      this.setState({
+        leaderboard2Days: orig2Days.splice(replacementIdx, 1, scoreEntry)
+      });
+
+    this.setState({ mostRecentScores });
+  }
+
+  handleLeaderboardNameChange = name => {
+    this.setState({ nameForScores: name });
+  };
+
+  handleChangeScoreSubmissionSettings = () => {
+    this.setState({ enableScoreSubmission: !this.state.enableScoreSubmission });
   };
 }
 

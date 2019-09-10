@@ -45,7 +45,11 @@ const adjectives = [
   "Voluptuous",
   "Sworn",
   "Sir",
-  "Madam"
+  "Madam",
+  "Top Notch",
+  "Top",
+  "Bottom",
+  "42nd"
 ];
 const beings = [
   "Meme",
@@ -60,7 +64,10 @@ const beings = [
   "Popsicle",
   "Pickle",
   "Bagel",
-  "Flower"
+  "Flower",
+  "Underlord",
+  "Underling",
+  "Duckling"
 ];
 
 export function generateRandomLeaderboardName() {

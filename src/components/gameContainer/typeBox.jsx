@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TypeBoxContainer from "./typeBoxContainer";
 import ControlBox from "./controlBox";
 import Instructions from "./instructions";
+import LeaderboardNameGetter from "./leaderboardName";
 
 import { getTextToType, generateIdx } from "./../../services";
 
@@ -52,10 +53,20 @@ class TypeBox extends Component {
           typedInputBox={this.typedInputBox}
           handleChange={this.handleChange}
         />
+        {this.props.leaderboardRetrieved ? (
+          <LeaderboardNameGetter
+            onOptionsChange={this.handleOptions}
+            onLeaderboardNameChange={val => this.handleNameChange(val)}
+            enableScoreSubmission={this.props.enableScoreSubmission}
+            nameForScores={this.props.nameForScores}
+          />
+        ) : null}
       </div>
     );
   }
-
+  handleNameChange = val => {
+    this.props.onLeaderboardNameChange(val);
+  };
   handleChange = ({ currentTarget: input }) => {
     const { textToType } = this.state;
     const textTyped = input.value;
@@ -126,6 +137,9 @@ class TypeBox extends Component {
   };
 
   handleOptions = x => {
+    if ("enableScoreSubmission" in x)
+      this.props.onChangeScoreSubmissionSettings();
+
     const nextPassageSettings = { ...this.state.nextPassageSettings, ...x };
     this.setState({ nextPassageSettings });
     if (this.state.textTyped === "") this.handleRestart(nextPassageSettings);

@@ -10,8 +10,8 @@ class PlayWithFriends extends Component {
     return (
       <React.Fragment>
         <Switch>
-          <Route path="/playwithfriends/:gameId" component={GameJoin} />
-          <Route path="/playwithfriends" exact component={GameCreation} />
+          <Route path="/withfriends/:gameId" component={GameJoin} />
+          <Route path="/withfriends" exact component={GameCreation} />
         </Switch>
       </React.Fragment>
     );

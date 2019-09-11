@@ -109,7 +109,6 @@ class Leaderboard extends Component {
   }
 
   renderDate(date, options) {
-    console.log(date);
     if (options === "mmdd,time")
       return (
         <td>

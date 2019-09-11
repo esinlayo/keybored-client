@@ -1,3 +1,3 @@
 {
-  "gameServer": "ws://localhost:5000"
+  "gameServer": "wss://keybored-server.herokuapp.com"
 }

@@ -36,7 +36,7 @@ class GameCreation extends Component {
         this.setState({
           messages: [
             ...this.state.messages,
-            `Room successfully created at ${window.location}/${room.id}`
+            `Room successfully created at ${window.location}/${room.id}.`
           ]
         });
 
@@ -55,7 +55,7 @@ class GameCreation extends Component {
       return (
         <Redirect
           to={{
-            pathname: `/playwithfriends/${this.roomid}`,
+            pathname: `/withfriends/${this.roomid}`,
             state: { client: this.client }
           }}
         />

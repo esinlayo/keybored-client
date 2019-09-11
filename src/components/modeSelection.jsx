@@ -22,7 +22,7 @@ const Index = () => {
       </Link>
       <p />
        */}
-        <Link to="/playwithfriends">
+        <Link to="/withfriends">
           <MyButtonComponent text="Invite friends to play" />
         </Link>
       </div>

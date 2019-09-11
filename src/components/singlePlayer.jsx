@@ -10,7 +10,7 @@ import "./gameContainer/gameContainer.css";
 
 import { generateRandomLeaderboardName } from "./../services";
 
-const scoresapi = "http://192.168.1.75:8000/scores";
+const scoresapi = "https://keybored-server.herokuapp.com/scores";
 
 class SinglePlayer extends Component {
   constructor() {
@@ -102,7 +102,9 @@ class SinglePlayer extends Component {
       score: Math.round(speed)
     };
     try {
-      await axios.post(scoresapi, scoreEntry);
+      await axios.post(scoresapi, scoreEntry, {
+        headers: { "Content-Size": 4 }
+      });
       this.updateLeaderboards(speed);
     } catch (ex) {
       console.log(ex);

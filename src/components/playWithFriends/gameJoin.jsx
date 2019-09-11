@@ -7,7 +7,11 @@ class GameJoin extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { messages: [] };
+    this.state = {
+      messages: [
+        "on console you can see people join this page but yea it's in progress"
+      ]
+    };
 
     this.roomId = props.match.params.gameId;
   }

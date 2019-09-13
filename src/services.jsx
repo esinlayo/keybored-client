@@ -14,11 +14,11 @@ const passages = [
   "There is no pleasure in having nothing to do; the fun is having lots to do and not doing it.",
   "Life is either a daring adventure or nothing at all",
   "All life is an experiment. The more experiments you make the better.",
-  "It's so simple to be wise… just think of something stupid to say and then don't say it",
+  "It's so simple to be wise... just think of something stupid to say and then don't say it",
   "If you are not willing to risk the unusual, you will have to settle for the ordinary.",
   "The risk of a wrong decision is preferable to the terror of indecision.",
-  "There’s something liberating about not pretending. Dare to embarrass yourself. Risk.",
-  "To win without risk is to triumph without glory. ",
+  "There's something liberating about not pretending. Dare to embarrass yourself. Risk.",
+  "To win without risk is to triumph without glory.",
   "Man cannot discover new oceans unless he has the courage to lose sight of the shore.",
   "Weaseling out of things is important to learn. It's what separates us from the animals...except the weasel"
 ];

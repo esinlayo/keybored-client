@@ -4,7 +4,7 @@ import "./gameContainer.css";
 class Leaderboards extends Component {
   constructor() {
     super()
-    this.state = { connectingMessage: "" }
+    this.state = { connectingMessage: <font color="white">"."</font> }
     setInterval(this.showConnectingMessage, 1000)
   }
 
@@ -48,9 +48,9 @@ class Leaderboards extends Component {
                       />
                     </td>
                   </React.Fragment> :
-                    <div style={{ padding: "4%" }}>
+                    <td style={{ padding: "4%" }}>
                       {this.state.connectingMessage}
-                    </div>}
+                    </td>}
                 </tr>
               </tbody>
             </table>

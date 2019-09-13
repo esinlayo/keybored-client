@@ -53,14 +53,12 @@ class TypeBox extends Component {
           typedInputBox={this.typedInputBox}
           handleChange={this.handleChange}
         />
-        {this.props.leaderboardRetrieved ? (
-          <LeaderboardNameGetter
-            onOptionsChange={this.handleOptions}
-            onLeaderboardNameChange={val => this.handleNameChange(val)}
-            enableScoreSubmission={this.props.enableScoreSubmission}
-            nameForScores={this.props.nameForScores}
-          />
-        ) : null}
+        <LeaderboardNameGetter
+          onOptionsChange={this.handleOptions}
+          onLeaderboardNameChange={val => this.handleNameChange(val)}
+          enableScoreSubmission={this.props.enableScoreSubmission}
+          nameForScores={this.props.nameForScores}
+        />
       </div>
     );
   }

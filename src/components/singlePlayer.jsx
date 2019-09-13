@@ -1,16 +1,21 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+
 import ProgressContainer from "./gameContainer/progressContainer";
 import ScoresBox from "./gameContainer/scoresBox";
 import TypeBox from "./gameContainer/typeBox";
 import Leaderboards from "./gameContainer/leaderboards";
 
 import "./gameContainer/gameContainer.css";
-
+import config from "./../config";
 import { generateRandomLeaderboardName } from "./../services";
 
-const scoresapi = "https://keybored-server.herokuapp.com/scores";
+
+axios.interceptors.response.use(null, err => {
+  alert(`An unexpected error occured in connecting to the server...\r\nThe server is likely down. :(\r\n${err}`);
+  return Promise.reject(err);
+})
 
 class SinglePlayer extends Component {
   constructor() {
@@ -60,23 +65,16 @@ class SinglePlayer extends Component {
             />
           </div>
         </div>
-        {this.renderLeaderboards()}
+        <div className="gameContainer">
+          <Leaderboards
+            mostRecentScores={this.state.mostRecentScores}
+            leaderboard2Days={this.state.leaderboard2Days}
+          />
+        </div>
       </React.Fragment>
     );
   }
 
-  renderLeaderboards() {
-    //if (this.state.mostRecentScores.length > 0)
-    return (
-      <div className="gameContainer">
-        <Leaderboards
-          mostRecentScores={this.state.mostRecentScores}
-          leaderboard2Days={this.state.leaderboard2Days}
-        />
-      </div>
-    );
-    //else return "";
-  }
 
   handleChange = progress => {
     this.setState({ progress });
@@ -102,12 +100,12 @@ class SinglePlayer extends Component {
       score: Math.round(speed)
     };
     try {
-      await axios.post(scoresapi, scoreEntry, {
+      await axios.post(config.scoresApi, scoreEntry, {
         headers: { "Content-Size": 4 }
       });
       this.updateLeaderboards(speed);
     } catch (ex) {
-      console.log(ex);
+      console.log("An unexpected error occured while trying to contact the server...", ex);
     }
   }
 
@@ -118,11 +116,11 @@ class SinglePlayer extends Component {
     if (score) this.leaderboardsOptimisticUpdate(score);
 
     try {
-      const { data } = await axios.get(scoresapi);
+      const { data } = await axios.get(config.scoresApi);
       const { mostRecentScores, topScores } = data;
       this.setState({ leaderboard2Days: topScores, mostRecentScores });
     } catch (ex) {
-      alert("top wa");
+      console.log("Something failed while trying to update leaderboards with the new score.")
       this.setState({
         leaderboard2Days: orig2Days,
         mostRecentScores: origMostRecent

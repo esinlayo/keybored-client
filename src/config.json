@@ -1,3 +1,4 @@
 {
-  "gameServer": "wss://keybored-server.herokuapp.com"
+  "gameServer": "wss://keybored-server.herokuapp.com",
+  "scoresApi": "https://keybored-server.herokuapp.com/scores"
 }

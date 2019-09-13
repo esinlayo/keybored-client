@@ -1,15 +1,5 @@
 const passages = [
-  /*
-  "It's so important to realize that every time you get upset, it drains your emotional energy.",
-  "Losing your cool makes you tired. Getting angry a lot messes with your health.",
-  "True rebels hate their own rebellion. They know by experience that it is not a cool and glamorous lifestyle",
-  "it takes a courageous fool to say things that have not been said and to do things that have not been done.",
-  "Miss Mary Mack, Mack, Mack, all dressed in black, black, black. She has a knife, knife, knife, stuck in her back, back, back.",
-  "She cannot breathe, breathe, breathe. She cannot cry, cry, cry. Thats why she begs, begs, begs. She begs to die, die ,die..",
-  "I'll come and make love to you at five o'clock. If I'm late start without me.",
-  "It's so trendy, almost bleeding to death. All the cool girls are doing it."
-  */
-
+  "It takes a courageous fool to say things that have not been said and to do things that have not been done.",
   "If you live to be 100, I hope I live to be 100 minus 1 day, so I never have to live without you.",
   "What you do not want done to yourself, do not do to others.",
   "Youth is the best time to be rich; and the best time to be poor.",
@@ -20,11 +10,17 @@ const passages = [
   "When life gets you down, make a comforter.",
   "If Jesus can walk on water, can he swim on land?",
   "What do you call a kid with no arms and an eyepatch? Names.",
-  "Quotes are for dumb people who can't think of something intelligent to say on their own."
-
-  /*
-  "What do you call a kid with no arms and an eyepatch? Names. What do you call a kid with no arms and an eyepatch? Names."
-  */
+  "It's kind of fun to do the impossible.",
+  "There is no pleasure in having nothing to do; the fun is having lots to do and not doing it.",
+  "Life is either a daring adventure or nothing at all",
+  "All life is an experiment. The more experiments you make the better.",
+  "It's so simple to be wise… just think of something stupid to say and then don't say it",
+  "If you are not willing to risk the unusual, you will have to settle for the ordinary.",
+  "The risk of a wrong decision is preferable to the terror of indecision.",
+  "There’s something liberating about not pretending. Dare to embarrass yourself. Risk.",
+  "To win without risk is to triumph without glory. ",
+  "Man cannot discover new oceans unless he has the courage to lose sight of the shore.",
+  "Weaseling out of things is important to learn. It's what separates us from the animals...except the weasel"
 ];
 
 export function getTextToType(idx) {
@@ -38,7 +34,7 @@ export function generateIdx() {
 const adjectives = [
   "Cute",
   "Smol",
-  "Tol",
+  "Huge",
   "Elusive",
   "Magestic",
   "Thundrous",
@@ -67,11 +63,12 @@ const beings = [
   "Flower",
   "Underlord",
   "Underling",
-  "Duckling"
+  "Duckling",
+  "Van"
 ];
 
 export function generateRandomLeaderboardName() {
-  const adj = adjectives[Math.floor(Math.random() * (adjectives.length - 1))];
-  const being = beings[Math.floor(Math.random() * (beings.length - 1))];
+  const adj = adjectives[Math.floor(Math.random() * (adjectives.length))];
+  const being = beings[Math.floor(Math.random() * (beings.length))];
   return `${adj} ${being}`;
 }

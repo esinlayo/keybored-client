@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import TypeBoxContainer from "./typeBoxContainer";
 import ControlBox from "./controlBox";
 import Instructions from "./instructions";
-import LeaderboardNameGetter from "./leaderboardName";
+import LeaderboardNameInput from "./leaderboardNameInput";
 
 import { getTextToType, generateIdx } from "./../../services";
 
@@ -53,7 +53,7 @@ class TypeBox extends Component {
           typedInputBox={this.typedInputBox}
           handleChange={this.handleChange}
         />
-        <LeaderboardNameGetter
+        <LeaderboardNameInput
           onOptionsChange={this.handleOptions}
           onLeaderboardNameChange={val => this.handleNameChange(val)}
           enableScoreSubmission={this.props.enableScoreSubmission}

@@ -4,7 +4,6 @@ import App from "./App";
 import { HashRouter } from "react-router-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-import config from "./config";
 
 ReactDOM.render(
   <HashRouter basename="/">

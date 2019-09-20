@@ -20,7 +20,6 @@ axios.interceptors.response.use(null, err => {
 class SinglePlayer extends Component {
   constructor() {
     super();
-
     this.state = {
       progress: 0,
 
@@ -94,7 +93,7 @@ class SinglePlayer extends Component {
     this.setState({ startTime: null, progress: 0 });
   };
 
-  async submitScores(speed) {
+  submitScores = async speed => {
     const scoreEntry = {
       name: this.state.nameForScores,
       score: Math.round(speed)
@@ -107,13 +106,26 @@ class SinglePlayer extends Component {
     } catch (ex) {
       console.log("An unexpected error occured while trying to contact the server...", ex);
     }
-  }
+  };
+
+  handleLeaderboardNameChange = name => {
+    this.setState({ nameForScores: name });
+  };
+
+  handleChangeScoreSubmissionSettings = () => {
+    // Ideally would like to use nextPassageSettings (found in TypeBox component's state)
+    //  to check if capital letters and punctuation is included, and only allow
+    //  enabling of score submission if both are included. But this would involve
+    //  lifting the state up... yet again.
+    // I explore other state management for play with friends mode.
+    this.setState({ enableScoreSubmission: !this.state.enableScoreSubmission });
+  };
 
   async updateLeaderboards(score) {
     const origMostRecent = this.state.mostRecentScores;
     const orig2Days = this.state.leaderboard2Days;
 
-    if (score) this.leaderboardsOptimisticUpdate(score);
+    if (score) this.updateLdrBoardOptimistically(score);
 
     try {
       const { data } = await axios.get(config.scoresApi);
@@ -128,7 +140,7 @@ class SinglePlayer extends Component {
     }
   }
 
-  leaderboardsOptimisticUpdate(score) {
+  updateLdrBoardOptimistically = score => {
     const origMostRecent = this.state.mostRecentScores;
     const orig2Days = this.state.leaderboard2Days;
     const scoreEntry = {
@@ -152,14 +164,6 @@ class SinglePlayer extends Component {
 
     this.setState({ mostRecentScores });
   }
-
-  handleLeaderboardNameChange = name => {
-    this.setState({ nameForScores: name });
-  };
-
-  handleChangeScoreSubmissionSettings = () => {
-    this.setState({ enableScoreSubmission: !this.state.enableScoreSubmission });
-  };
 }
 
 export default SinglePlayer;

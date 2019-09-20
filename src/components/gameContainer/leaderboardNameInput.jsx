@@ -4,7 +4,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 
-class LeaderboardNameGetter extends Component {
+class LeaderboardNameInput extends Component {
   render() {
     const handleCheckboxChange = name => event => {
       this.props.onOptionsChange({ [name]: event.target.checked });
@@ -54,4 +54,4 @@ class LeaderboardNameGetter extends Component {
   }
 }
 
-export default LeaderboardNameGetter;
+export default LeaderboardNameInput;

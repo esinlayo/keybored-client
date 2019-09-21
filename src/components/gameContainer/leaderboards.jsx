@@ -76,9 +76,7 @@ class Leaderboard extends Component {
       const curr = this.props.leaderboard.map(obj => JSON.stringify(obj));
       const prev = prevProps.leaderboard.map(obj => JSON.stringify(obj));
       for (const [idx, entry] of curr.entries())
-        if (!prev.includes(entry)) {
-          changed.push(idx);
-        }
+        if (!prev.includes(entry)) changed.push(idx);
       this.setState({ changedIndices: changed });
       setTimeout(() => this.setState({ changedIndices: [] }), 3000);
     }

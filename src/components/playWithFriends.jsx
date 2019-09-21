@@ -8,12 +8,12 @@ import GameJoin from "./playWithFriends/gameJoin";
 class PlayWithFriends extends Component {
   render() {
     return (
-      <React.Fragment>
+      <div className="gameContainer">
         <Switch>
           <Route path="/withfriends/:gameId" component={GameJoin} />
           <Route path="/withfriends" exact component={GameCreation} />
         </Switch>
-      </React.Fragment>
+      </div>
     );
   }
 }

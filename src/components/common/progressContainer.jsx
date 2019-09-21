@@ -14,15 +14,25 @@ const ProgressContainer = props => {
       }}
     >
       <div style={{ width: "100%", position: "absolute", bottom: 0 }}>
-        <img
-          alt="a cool car"
-          width="100"
-          src={cartoon_car}
-          style={{
-            position: "relative",
-            left: 100 * props.progress + "%"
-          }}
-        />
+        <div style={{
+          position: "relative",
+          left: 100 * props.progress + "%"
+          , bottom: 0
+        }}>
+          <img
+            alt="a cool car"
+            width="100"
+            src={cartoon_car}
+          />
+        </div>
+        <div style={{
+          position: "absolute",
+          left: 100 * props.progress + "%",
+          bottom: 0,
+          background: "rgba(255, 255, 255, 0.5)"
+        }}>
+          {props.displayName}
+        </div>
       </div>
     </div>
   );

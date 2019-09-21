@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 
-import ProgressContainer from "./gameContainer/progressContainer";
+import ProgressContainer from "./common/progressContainer";
 import ScoresBox from "./gameContainer/scoresBox";
 import TypeBox from "./gameContainer/typeBox";
 import Leaderboards from "./gameContainer/leaderboards";

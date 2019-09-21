@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import * as Colyseus from "colyseus.js";
 import config from "./../../config";
 import { Redirect } from "react-router-dom";
-import roomfn from "./roomfunction";
 
 class GameCreation extends Component {
   state = { messages: [], creationComplete: false };
@@ -12,62 +11,56 @@ class GameCreation extends Component {
     this.client = new Colyseus.Client(config.gameServer);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setState({
       messages: [...this.state.messages, `Connected!`]
     });
 
-    this.createRoom().then(val => {
-      this.roomid = val;
-      this.setState({ creationComplete: true });
-    });
-
-    this.client = null;
+    await this.createRoom()
+    this.setState({ creationComplete: true })
   }
 
-  createRoom() {
-    return this.client
-      .create("gameRoom", {
-        /* options */
-      })
-      .then(room => {
-        roomfn(room);
-        console.log("create successfully", room.id);
-        this.setState({
-          messages: [
-            ...this.state.messages,
-            `Room successfully created at ${window.location}/${room.id}.`
-          ]
-        });
-
-        return room.id;
-      })
-      .catch(e => {
-        console.error("create error", e);
-        this.setState({
-          messages: [...this.state.messages, `create error ${e.cnxnstr}`]
-        });
+  async createRoom() {
+    try {
+      this.room = await this.client.create("gameRoom", {})
+      console.log("gC - create successfully", this.room.id);
+      this.setState({
+        messages: [
+          ...this.state.messages,
+          `Room successfully created at ${window.location}/${this.room.id}.`
+        ]
       });
+      return true
+    } catch (e) {
+      console.error("create error", e);
+      this.setState({
+        messages: [...this.state.messages, `create error ${e.cnxnstr}`]
+      });
+      return false
+    }
+
   }
 
   render() {
     if (this.state.creationComplete) {
+      console.log("gC - creationCompleted - room", this.room)
+      console.log("gC - creationCompleted - client", this.client)
       return (
         <Redirect
           to={{
-            pathname: `/withfriends/${this.roomid}`,
-            state: { client: this.client }
+            pathname: `/withfriends/${this.room.id}`,
+            state: { room: this.room, client: this.client }
           }}
         />
       );
     }
     return (
-      <div className="gameContainer">
+      <React.Fragment>
         {"Trying to connect to the server..."}
         {this.state.messages.map((msg, idx) => (
           <div key={idx}>{msg}</div>
         ))}
-      </div>
+      </React.Fragment>
     );
   }
 }

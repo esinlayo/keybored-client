@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import TypeBoxContainer from "./typeBoxContainer";
+import TypeBox from "./../common/typeBox";
 import ControlBox from "./controlBox";
 import Instructions from "./instructions";
 import LeaderboardNameInput from "./leaderboardNameInput";
 
 import { getTextToType, generateIdx } from "./../../services";
 
-class TypeBox extends Component {
+class TypeArea extends Component {
   constructor() {
     super();
     this.typedInputBox = React.createRef();
@@ -45,7 +45,7 @@ class TypeBox extends Component {
           nextPassageSettings={nextPassageSettings}
         />
         <Instructions startTime={this.props.startTime} />
-        <TypeBoxContainer
+        <TypeBox
           textToType={this.state.textToType}
           textTyped={this.state.textTyped}
           lastErrorIdx={this.state.lastErrorIdx}
@@ -174,4 +174,4 @@ class TypeBox extends Component {
   };
 }
 
-export default TypeBox;
+export default TypeArea;

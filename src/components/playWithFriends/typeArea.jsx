@@ -1,0 +1,93 @@
+import React, { Component } from "react";
+import TypeBox from "./../common/typeBox";
+import CountdownBanner from "./countdownBanner"
+
+
+class TypeArea extends Component {
+    constructor() {
+        super();
+        this.typedInputBox = React.createRef();
+
+        this.state = {
+            textTyped: "",
+
+            error: "",
+            lastErrorIdx: null,
+            hasError: false
+        };
+    }
+
+    render() {
+        return (
+            <div id="typeBox">
+                <CountdownBanner display={this.props.gameStarting} countdown={this.props.countdown} />
+                <TypeBox
+                    textToType={this.props.textToType}
+                    textTyped={this.state.textTyped}
+                    lastErrorIdx={this.state.lastErrorIdx}
+                    error={this.state.error}
+                    typedInputBox={this.typedInputBox}
+                    handleChange={this.handleChange}
+                />
+            </div>
+        );
+    }
+    handleNameChange = val => {
+        this.props.onLeaderboardNameChange(val);
+    };
+    handleChange = ({ currentTarget: input }) => {
+        if (!this.props.gameStarted) return;
+        const { textToType } = this.props;
+        const textTyped = input.value;
+        const changeIdx = textTyped.length - 1;
+        const typedChar = [...textTyped][changeIdx];
+        const charToType = [...textToType][changeIdx];
+
+        let { lastErrorIdx, hasError, error } = this.state;
+        let { startTime } = this.props;
+
+        if (changeIdx === 0 && startTime === null) {
+            this.props.onGameStart();
+        }
+
+        if (hasError && changeIdx === lastErrorIdx - 1) {
+            // Typebox contents have reverted back to contents before the last error was made.
+            lastErrorIdx = null;
+            hasError = false;
+            error = "";
+        }
+
+        if (!hasError && typedChar !== charToType) {
+            // A new error is detected.
+            lastErrorIdx = changeIdx;
+            hasError = true;
+        }
+
+        if (hasError) error = textTyped.substring(lastErrorIdx);
+
+        const progress =
+            lastErrorIdx !== null
+                ? lastErrorIdx / textToType.length
+                : textTyped.length / textToType.length;
+        this.props.onChange(progress);
+
+        if (!hasError && textTyped.length === textToType.length) {
+            //const elapsed = new Date().getTime() - this.props.startTime;
+            //const speed = textToType.length / ((elapsed / 1000 / 60) * 5);
+            //this.handleNewPassage();
+            //this.props.onGameFinish(speed);
+            return;
+        }
+
+        this.setState({
+            textTyped,
+            hasError,
+            lastErrorIdx,
+            error,
+            startTime
+        });
+    };
+
+}
+
+export default TypeArea;

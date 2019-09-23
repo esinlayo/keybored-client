@@ -1,68 +1,39 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import * as Colyseus from "colyseus.js";
 import config from "./../../config";
 import { Redirect } from "react-router-dom";
 
-class GameCreation extends Component {
-  state = { messages: [], creationComplete: false };
+import ProfileCreator from './profileCreator';
 
-  constructor() {
-    super();
-    this.client = new Colyseus.Client(config.gameServer);
+const GameCreation = (props) => {
+  const client = new Colyseus.Client(config.gameServer);
+
+  const [creationComplete, setCreationComplete] = useState(false)
+  const [room, setRoom] = useState(undefined)
+
+  const createRoom = async (options) => {
+    setRoom(await client.create("gameRoom", options))
   }
-
-  async componentDidMount() {
-    this.setState({
-      messages: [...this.state.messages, `Connected!`]
-    });
-
-    await this.createRoom()
-    this.setState({ creationComplete: true })
-  }
-
-  async createRoom() {
+  const submitProfile = async (profileCreatorOptions) => {
     try {
-      this.room = await this.client.create("gameRoom", {})
-      console.log("gC - create successfully", this.room.id);
-      this.setState({
-        messages: [
-          ...this.state.messages,
-          `Room successfully created at ${window.location}/${this.room.id}.`
-        ]
-      });
-      return true
+      await createRoom(profileCreatorOptions)
+      setCreationComplete(true)
     } catch (e) {
-      console.error("create error", e);
-      this.setState({
-        messages: [...this.state.messages, `create error ${e.cnxnstr}`]
-      });
-      return false
+      console.error("GameCreation - create error", e);
     }
-
   }
 
-  render() {
-    if (this.state.creationComplete) {
-      console.log("gC - creationCompleted - room", this.room)
-      console.log("gC - creationCompleted - client", this.client)
-      return (
+  return (
+    <React.Fragment>
+      {creationComplete ?
         <Redirect
           to={{
-            pathname: `/withfriends/${this.room.id}`,
-            state: { room: this.room, client: this.client }
-          }}
-        />
-      );
-    }
-    return (
-      <React.Fragment>
-        {"Trying to connect to the server..."}
-        {this.state.messages.map((msg, idx) => (
-          <div key={idx}>{msg}</div>
-        ))}
-      </React.Fragment>
-    );
-  }
+            pathname: `/withfriends/${room.id}`,
+            state: { room, client }
+          }} />
+        : <ProfileCreator create={submitProfile} />}
+    </React.Fragment>
+  );
 }
 
 export default GameCreation;

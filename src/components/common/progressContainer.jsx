@@ -29,12 +29,13 @@ const ProgressContainer = props => {
           position: "absolute",
           left: 100 * props.progress + "%",
           bottom: 0,
-          background: "rgba(255, 255, 255, 0.5)"
+          background: "rgba(255, 255, 255, 0.5)",
+          whiteSpace: "nowrap"
         }}>
           {props.displayName}
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

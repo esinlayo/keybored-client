@@ -30,7 +30,7 @@ class TypeMeBox extends Component {
   };
 }
 
-const TypeBoxContainer = props => {
+const TypeBox = props => {
   return (
     <div id="typeboxContainer">
       <Typography
@@ -55,15 +55,18 @@ const TypeBoxContainer = props => {
         autoCorrect="off"
         autoCapitalize="off"
         onPaste={e => e.preventDefault()}
-        onKeyPress={e => {
-          // disable return(enter) key
-          if (e.keyCode === 13 || e.which === 13) e.preventDefault();
-        }}
+        onKeyPress={e => { if (e.keyCode === 13 || e.which === 13) e.preventDefault() }} // disable return(enter) key
         onChange={props.handleChange}
         value={props.textTyped}
       />
+
     </div>
   );
 };
 
-export default TypeBoxContainer;
+
+
+
+
+
+export default TypeBox;

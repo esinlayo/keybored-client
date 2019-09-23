@@ -4,7 +4,7 @@ import axios from "axios";
 
 import ProgressContainer from "./common/progressContainer";
 import ScoresBox from "./gameContainer/scoresBox";
-import TypeBox from "./gameContainer/typeBox";
+import TypeArea from "./gameContainer/typeArea";
 import Leaderboards from "./gameContainer/leaderboards";
 
 import "./gameContainer/gameContainer.css";
@@ -49,7 +49,7 @@ class SinglePlayer extends Component {
               score={this.state.score}
               highScore={this.state.highScore}
             />
-            <TypeBox
+            <TypeArea
               onChange={this.handleChange}
               onGameFinish={this.handleGameFinish}
               onGameStart={this.handleGameStart}

@@ -15,7 +15,7 @@ const ProfileCreator = (props) => {
 
     return (
         <React.Fragment>
-            {"You've been invited to play keybored!"}
+            {"Play keybored with your friends!"}
             <br />
             {"Create your character below."}
             <hr />
@@ -26,25 +26,25 @@ const ProfileCreator = (props) => {
                         value={name}
                         onChange={e => setName(e.target.value)}
                         margin="normal"
+                        style={{ width: "100%" }}
                     />
                     <br />
                     <FormControl>
-                        <InputLabel>Character</InputLabel>
-                        <Select native value={character} onChange={e => setCharacter(e.target.value)}>
-                            <option value={0}>Car</option>
-                            <option value={1}>Wheelchair</option>
-                            <option value={2}>ShoppingCart</option>
-                        </Select>
-                    </FormControl>
-                    <FormControl style={{ padding: "0px 0px 0px 15px" }}>
-                        <InputLabel style={{ padding: "0px 0px 0px 15px" }}>Color</InputLabel>
+                        <InputLabel>Color</InputLabel>
                         <Select native value={color} onChange={e => setColor(e.target.value)}>
                             <option value={0}>Red</option>
                             <option value={1}>Blue</option>
                             <option value={2}>Green</option>
                         </Select>
                     </FormControl>
-
+                    <FormControl style={{ padding: "0px 0px 0px 15px" }}>
+                        <InputLabel style={{ padding: "0px 0px 0px 15px" }}>Character</InputLabel>
+                        <Select native value={character} onChange={e => setCharacter(e.target.value)}>
+                            <option value={0}>Car</option>
+                            <option value={1}>Wheelchair</option>
+                            <option value={2}>Shopping Cart</option>
+                        </Select>
+                    </FormControl>
                     <br /><center>
                         <Button
                             style={{

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import "./gameContainer/gameContainer.css";
 import { Switch, Route } from "react-router-dom";
 import GameCreation from "./playWithFriends/gameCreation";
-import GamePlay from "./playWithFriends/gameJoin";
+import GamePlay from "./playWithFriends/gamePlay";
 
 class PlayWithFriends extends Component {
   render() {

@@ -16,10 +16,10 @@ class GamePlay extends Component {
   constructor(props) {
     super(props);
 
-
     this.state = {
       joined: false,
       joinError: null,
+
       players: {},
       countdown: 4,
       countingDown: false,
@@ -30,12 +30,13 @@ class GamePlay extends Component {
 
   async componentDidMount(props) {
     const { state: creationState } = this.props.location
-    // room creator
-    if (creationState !== undefined && creationState.client !== undefined) {
+    const isRoomCreator = creationState !== undefined && creationState.client !== undefined
+
+    if (isRoomCreator) {
       this.client = creationState.client;
       this.room = await creationState.room;
       this.setState({ joined: true })
-    } else { // room joiner
+    } else {
       this.client = await new Colyseus.Client(config.gameServer);
       const rooms = await this.client.getAvailableRooms();
 
@@ -43,10 +44,8 @@ class GamePlay extends Component {
       rooms.forEach(room => {
         if (room.roomId === this.props.match.params.gameId) matchFound = true
       })
-
       if (!matchFound) {
-        console.log("cry")
-        this.setState({ joinError: "cry" })
+        this.setState({ joinError: "Room not found" })
       }
     }
     if (this.room !== undefined) {
@@ -58,11 +57,11 @@ class GamePlay extends Component {
     if (this.room !== undefined) this.room.leave()
   }
 
+
   onUpdateRemote = state => {
     const { textToType, players, countdown } = state
     this.setState({ textToType, players, countdown })
   }
-
 
 
   async joinRoom(options) {
@@ -75,6 +74,8 @@ class GamePlay extends Component {
     if (this.room !== undefined) {
       this.room.onMessage(message => { console.log(message) });
       this.room.onStateChange(state => this.onUpdateRemote(state))
+    } else {
+      this.setState({ joinError: "Room undefined" })
     }
   }
 
@@ -85,7 +86,6 @@ class GamePlay extends Component {
     this.setState({ progress });
     this.room.send({ progress: progress });
   };
-
 
   submitProfile = async (profileCreatorOptions) => {
     try {
@@ -141,9 +141,6 @@ class GamePlay extends Component {
                     );
                   })}
                 </div>
-
-
-
               </React.Fragment>}
       </div>
     );

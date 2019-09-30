@@ -9,7 +9,7 @@ import "./icons-style.css"
 export const Character = props => {
   return (
     <React.Fragment>
-      <div style={{ width: 100, position: "relative", left: 100 * props.progress + "%", bottom: 0 }}>
+      <div style={{ width: 100, position: "relative", left: (props.progress * 100) + "%" }}>
         {props.character === "single-player" ?
           <img src={cartoon_car} alt="a cool car" width="100" />
           : <span className={"icon-" + getCharacterClassName(props.character)}
@@ -37,7 +37,7 @@ const ProgressCharacter = props => {
         backgroundSize: "auto 100%"
       }}
     >
-      <div style={{ width: "100%", position: "absolute", bottom: 0 }}>
+      <div style={{ width: "100%", position: "absolute", bottom: 0, overflow: "hidden" }}>
         <Character
           progress={props.progress}
           displayName={props.displayName}

@@ -18,7 +18,7 @@ class GamePlay extends Component {
 
     this.state = {
       joined: false,
-      joinError: null,
+      joinError: "Connecting to the game room...",
 
       players: {},
       countdown: 4,
@@ -29,25 +29,30 @@ class GamePlay extends Component {
   }
 
   async componentDidMount(props) {
-    const { state: creationState } = this.props.location
-    const isRoomCreator = creationState !== undefined && creationState.client !== undefined
-
-    if (isRoomCreator) {
+    const roomCreatorJoin = async () => {
       this.client = creationState.client;
       this.room = await creationState.room;
-      this.setState({ joined: true })
-    } else {
-      this.client = await new Colyseus.Client(config.gameServer);
+      this.setState({ joined: true, joinError: null })
+    }
+    const roomInviteeJoin = async () => {
+      this.client = new Colyseus.Client(config.gameServer);
       const rooms = await this.client.getAvailableRooms();
 
       let matchFound = false
       rooms.forEach(room => {
         if (room.roomId === this.props.match.params.gameId) matchFound = true
       })
-      if (!matchFound) {
-        this.setState({ joinError: "Room not found" })
-      }
+      if (!matchFound) this.setState({ joinError: "Game room not found..." })
+      else this.setState({ joinError: null })
     }
+
+
+    const { state: creationState } = this.props.location
+    const isRoomCreator = creationState !== undefined && creationState.client !== undefined
+
+    if (isRoomCreator) await roomCreatorJoin()
+    else await roomInviteeJoin()
+
     if (this.room !== undefined) {
       this.room.onMessage(message => { console.log(message) });
       this.room.onStateChange(state => this.onUpdateRemote(state))
@@ -66,16 +71,18 @@ class GamePlay extends Component {
 
   async joinRoom(options) {
     try {
+      this.setState({ joinError: "Joining the game room..." })
       this.room = await this.client.joinById(this.props.match.params.gameId, options)
-      this.setState({ joined: true })
+      this.setState({ joined: true, joinError: null })
     } catch (e) {
       this.setState({ joinError: e })
     };
+
     if (this.room !== undefined) {
       this.room.onMessage(message => { console.log(message) });
       this.room.onStateChange(state => this.onUpdateRemote(state))
     } else {
-      this.setState({ joinError: "Room undefined" })
+      this.setState({ joinError: "Error joining the game room..." })
     }
   }
 
@@ -87,13 +94,7 @@ class GamePlay extends Component {
     this.room.send({ progress: progress });
   };
 
-  submitProfile = async (profileCreatorOptions) => {
-    try {
-      await this.joinRoom(profileCreatorOptions)
-    } catch (e) {
-      console.error("GameJoin - join error", e);
-    }
-  }
+  submitProfile = (profileCreatorOptions) => { this.joinRoom(profileCreatorOptions) }
 
   render() {
     const { joined, players, countdown, joinError } = this.state
@@ -104,7 +105,7 @@ class GamePlay extends Component {
 
     return (
       <div id="gamewf">
-        {joinError ? "Join Error" :
+        {joinError ? joinError :
           !joined ?
             <ProfileCreator create={this.submitProfile} />
             : this.state.joinError !== null ?

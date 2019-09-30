@@ -1,6 +1,7 @@
 {
   "gameServer": "wss://keybored-server.herokuapp.com",
   "scoresApi": "https://keybored-server.herokuapp.com/scores",
+  "wakeServer": "https://keybored-server.herokuapp.com/awake",
   "_prod_gameServer": "wss://keybored-server.herokuapp.com",
   "_prod_scoresApi": "https://keybored-server.herokuapp.com/scores",
   "_dev_gameServer": "ws://192.168.1.66:443",

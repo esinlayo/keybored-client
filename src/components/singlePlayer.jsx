@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 
-import ProgressContainer from "./common/progressContainer";
+import ProgressCharacter from "./common/progressCharacter";
 import ScoresBox from "./gameContainer/scoresBox";
 import TypeArea from "./gameContainer/typeArea";
 import Leaderboards from "./gameContainer/leaderboards";
@@ -43,7 +43,7 @@ class SinglePlayer extends Component {
     return (
       <React.Fragment>
         <div className="gameContainer">
-          <ProgressContainer progress={this.state.progress} character="single-player" />
+          <ProgressCharacter progress={this.state.progress} character="single-player" />
           <div style={{ textAlign: "right" }}>
             <ScoresBox
               score={this.state.score}

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import * as Colyseus from "colyseus.js";
 import config from "./../../config";
 
-import ProgressContainer from "../common/progressContainer"
+import ProgressCharacter from "../common/progressCharacter"
 import TypeArea from "./typeArea"
 import SendLinkPrompt from "./sendLinkPrompt"
 import StartGameButton from "./startGameButton"
@@ -134,7 +134,7 @@ class GamePlay extends Component {
                 <div>
                   {Object.keys(players).map(key => {
                     return (
-                      <ProgressContainer key={key}
+                      <ProgressCharacter key={key}
                         progress={players[key].progress}
                         displayName={players[key].name}
                         character={players[key].character}

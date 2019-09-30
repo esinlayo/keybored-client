@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import { generateRandomLeaderboardName } from "./../../services";
-import { Character } from "./../common/progressContainer"
+import { Character } from "../common/progressCharacter"
 import { characters } from "./../common/characters"
 const colors = ["Red", "Green", "Blue", "Yellow", "Orange", "Purple"]
 

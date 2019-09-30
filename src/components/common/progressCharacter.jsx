@@ -27,7 +27,7 @@ export const Character = props => {
   );
 }
 
-const ProgressContainer = props => {
+const ProgressCharacter = props => {
   return (
     <div
       id="progressContainer"
@@ -49,4 +49,4 @@ const ProgressContainer = props => {
   );
 };
 
-export default ProgressContainer;
+export default ProgressCharacter;

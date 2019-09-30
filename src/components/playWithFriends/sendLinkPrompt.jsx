@@ -1,17 +1,26 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Tooltip from "@material-ui/core/Tooltip"
 
 const SendLinkPrompt = (props) => {
-
     const inputEl = useRef(null);
+    const [tooltipOpen, setTooltipOpen] = React.useState(false);
+    const [tooltipText, setTooltipText] = React.useState("Copied to clipboard!");
 
-    const copyToClipboard = (e) => {
-        console.log(e.currentTarget)
-        console.log(inputEl)
+    const handleTooltipClose = () => {
+        setTooltipOpen(false);
+    };
+
+    const handleTooltipOpen = () => {
+        setTooltipOpen(true);
+        setTimeout(handleTooltipClose, 5000)
+
         inputEl.current.focus();
         inputEl.current.select()
-        document.execCommand('copy');
+        if (document.queryCommandSupported && document.queryCommandSupported('copy'))
+            document.execCommand('copy');
+        else setTooltipText("Press Ctrl+C to copy")
     };
 
     return (
@@ -23,13 +32,16 @@ const SendLinkPrompt = (props) => {
                 ref={inputEl}
                 value={props.link}
                 readOnly />
-            {
-                document.queryCommandSupported('copy') &&
-                <Button style={{
-                    display: "inline-block",
-                    verticalAlign: "middle",
-                    margin: "4px"
-                }}
+            <Tooltip
+                onClose={handleTooltipClose}
+                open={tooltipOpen}
+                placement="right"
+                disableFocusListener
+                disableHoverListener
+                disableTouchListener
+                title={tooltipText}
+            >
+                <Button style={{ display: "inline-block", verticalAlign: "middle" }}
                     size="small"
                     color="primary"
                     variant="contained"
@@ -38,11 +50,11 @@ const SendLinkPrompt = (props) => {
                         padding: "5px 5px",
                         minWidth: "0",
                     }}
-                    onClick={copyToClipboard}>
+                    onClick={handleTooltipOpen}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" /></svg>
 
                 </Button>
-            }
+            </Tooltip>
 
         </div>
     );

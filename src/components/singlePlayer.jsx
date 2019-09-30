@@ -43,7 +43,7 @@ class SinglePlayer extends Component {
     return (
       <React.Fragment>
         <div className="gameContainer">
-          <ProgressContainer progress={this.state.progress} />
+          <ProgressContainer progress={this.state.progress} character="single-player" />
           <div style={{ textAlign: "right" }}>
             <ScoresBox
               score={this.state.score}

@@ -7,11 +7,14 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import { generateRandomLeaderboardName } from "./../../services";
+import { Character } from "./../common/progressContainer"
+import { characters } from "./../common/characters"
+const colors = ["Red", "Green", "Blue", "Yellow", "Orange", "Purple"]
 
 const ProfileCreator = (props) => {
     const [name, setName] = useState(generateRandomLeaderboardName());
-    const [character, setCharacter] = useState(0)
-    const [color, setColor] = useState(0)
+    const [character, setCharacter] = useState(Math.floor(Math.random() * characters.length))
+    const [color, setColor] = useState(colors[Math.floor(Math.random() * colors.length)])
 
     return (
         <React.Fragment>
@@ -20,6 +23,10 @@ const ProfileCreator = (props) => {
             {"Create your character below."}
             <hr />
             <div width="100%" style={{ textAlign: "center" }}>
+                <div style={{ textAlign: "center", width: "100%" }}>
+                    <div style={{ display: "inline-block", width: "100px" }}>
+                        <Character character={character} color={color} />
+                    </div></div>
                 <div style={{ display: "inline-block", textAlign: "left" }}>
                     <TextField
                         label="Name"
@@ -32,17 +39,17 @@ const ProfileCreator = (props) => {
                     <FormControl>
                         <InputLabel>Color</InputLabel>
                         <Select native value={color} onChange={e => setColor(e.target.value)}>
-                            <option value={0}>Red</option>
-                            <option value={1}>Blue</option>
-                            <option value={2}>Green</option>
+                            {colors.map((val, idx) => {
+                                return <option key={idx} value={val}>{val}</option>
+                            })}
                         </Select>
                     </FormControl>
                     <FormControl style={{ padding: "0px 0px 0px 15px" }}>
                         <InputLabel style={{ padding: "0px 0px 0px 15px" }}>Character</InputLabel>
                         <Select native value={character} onChange={e => setCharacter(e.target.value)}>
-                            <option value={0}>Car</option>
-                            <option value={1}>Wheelchair</option>
-                            <option value={2}>Shopping Cart</option>
+                            {characters.map((val, idx) => {
+                                return <option key={idx} value={idx}>{val}</option>
+                            })}
                         </Select>
                     </FormControl>
                     <br /><center>

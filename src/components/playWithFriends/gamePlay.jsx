@@ -137,6 +137,8 @@ class GamePlay extends Component {
                       <ProgressContainer key={key}
                         progress={players[key].progress}
                         displayName={players[key].name}
+                        character={players[key].character}
+                        color={players[key].color}
                         className={"" + key !== this.room.sessionId ? "dull" : ""} />
                     );
                   })}

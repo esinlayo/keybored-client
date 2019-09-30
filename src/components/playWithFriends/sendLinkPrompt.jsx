@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip"
@@ -41,15 +41,12 @@ const SendLinkPrompt = (props) => {
                 disableTouchListener
                 title={tooltipText}
             >
-                <Button style={{ display: "inline-block", verticalAlign: "middle" }}
+                <Button style={{
+                    display: "inline-block", minWidth: "0", verticalAlign: "middle", margin: "0px 5px", padding: "1px 5px",
+                }}
                     size="small"
                     color="primary"
                     variant="contained"
-                    style={{
-                        margin: "0px 5px",
-                        padding: "5px 5px",
-                        minWidth: "0",
-                    }}
                     onClick={handleTooltipOpen}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" /></svg>
 

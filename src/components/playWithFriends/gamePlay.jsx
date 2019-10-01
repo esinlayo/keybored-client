@@ -6,8 +6,8 @@ import ProgressCharacter from "../common/progressCharacter"
 import TypeArea from "./typeArea"
 import SendLinkPrompt from "./sendLinkPrompt"
 import StartGameButton from "./startGameButton"
-import ProfileCreator from './profileCreator';
-
+import ProfileCreator from './profileCreator'
+import GameFinishMessage, { PlayerFinishedMessage } from './gameFinishMessage'
 
 import "./withFriends.css"
 import NumPlayersDisplay from "./numPlayersDisplay";
@@ -18,7 +18,13 @@ class GamePlay extends Component {
 
     this.state = {
       joined: false,
-      joinError: "Connecting to the game room...",
+      joinError:
+        <React.Fragment>
+          Connecting to the game room...
+          <p>The server is hosted on a heroku free plan which may take up to 30s to wake up, but
+            after it wakes up it stays awake for at least 30 minutes or while there are still connections.</p>
+
+        </React.Fragment>,
 
       players: {},
       countdown: 4,
@@ -79,12 +85,16 @@ class GamePlay extends Component {
     };
 
     if (this.room !== undefined) {
-      this.room.onMessage(message => { console.log(message) });
+      this.room.onMessage(message => {
+        console.log("om", message)
+        if (message === "playAgain") this.setState({ progress: 0 })
+      });
       this.room.onStateChange(state => this.onUpdateRemote(state))
     } else {
       this.setState({ joinError: "Error joining the game room..." })
     }
   }
+  submitProfile = (profileCreatorOptions) => { this.joinRoom(profileCreatorOptions) }
 
   startGame = () => {
     this.room.send({ action: "start" })
@@ -94,7 +104,9 @@ class GamePlay extends Component {
     this.room.send({ progress: progress });
   };
 
-  submitProfile = (profileCreatorOptions) => { this.joinRoom(profileCreatorOptions) }
+  onPlayAgainButton = () => {
+    this.room.send({ action: "playAgain" })
+  }
 
   render() {
     const { joined, players, countdown, joinError } = this.state
@@ -112,16 +124,24 @@ class GamePlay extends Component {
               <p>Error joining game</p>
               : <React.Fragment>
                 {gameStarting || gameStarted ?
-                  <TypeArea
-                    onChange={this.handleChange}
-                    textToType={this.state.textToType}
-                    lastErrorIdx={this.state.lastErrorIdx}
-                    error={this.state.error}
-                    handleChange={this.handleChange}
-                    gameStarted={gameStarted}
-                    gameStarting={gameStarting}
-                    countdown={countdown}
-                  /> : null}
+                  <div style={{ width: "100%", position: "relative" }}>
+                    <TypeArea
+                      onChange={this.handleChange}
+                      textToType={this.state.textToType}
+                      lastErrorIdx={this.state.lastErrorIdx}
+                      error={this.state.error}
+                      handleChange={this.handleChange}
+                      gameStarted={gameStarted}
+                      gameStarting={gameStarting}
+                      countdown={countdown}
+                    />
+                    {players.length !== 0 && players[this.room.sessionId].progress === 1
+                      ? <GameFinishMessage
+                        place={players[this.room.sessionId].finished}
+                        speed={players[this.room.sessionId].speed}
+                        handlePlayAgainButton={this.onPlayAgainButton} /> : null}
+                  </div>
+                  : null}
 
                 {!(gameStarting || gameStarted) ?
                   <React.Fragment>
@@ -135,17 +155,23 @@ class GamePlay extends Component {
                 <div>
                   {Object.keys(players).map(key => {
                     return (
-                      <ProgressCharacter key={key}
-                        progress={players[key].progress}
-                        displayName={players[key].name}
-                        character={players[key].character}
-                        color={players[key].color}
-                        className={"" + key !== this.room.sessionId ? "dull" : ""} />
+                      <div key={key} style={{ width: "100%", position: "relative" }}>
+                        <ProgressCharacter
+                          progress={players[key].progress}
+                          displayName={players[key].name}
+                          character={players[key].character}
+                          color={players[key].color}
+                          className={"" + key !== this.room.sessionId ? "dull" : ""} />
+                        {players[key].finished !== -1
+                          ? <PlayerFinishedMessage place={players[key].finished} speed={players[key].speed} />
+                          : null}
+                      </div>
                     );
                   })}
                 </div>
-              </React.Fragment>}
-      </div>
+              </React.Fragment>
+        }
+      </div >
     );
   }
 }

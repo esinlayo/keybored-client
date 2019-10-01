@@ -71,14 +71,6 @@ class TypeArea extends Component {
                 : textTyped.length / textToType.length;
         this.props.onChange(progress);
 
-        if (!hasError && textTyped.length === textToType.length) {
-            //const elapsed = new Date().getTime() - this.props.startTime;
-            //const speed = textToType.length / ((elapsed / 1000 / 60) * 5);
-            //this.handleNewPassage();
-            //this.props.onGameFinish(speed);
-            return;
-        }
-
         this.setState({
             textTyped,
             hasError,
@@ -86,6 +78,10 @@ class TypeArea extends Component {
             error,
             startTime
         });
+
+        if (!hasError && textTyped.length === textToType.length) {
+            return;
+        }
     };
 
 }

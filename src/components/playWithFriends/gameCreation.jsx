@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as Colyseus from "colyseus.js";
-import axios from "axios";
 import config from "./../../config";
 import { Redirect } from "react-router-dom";
 
 import ProfileCreator from './profileCreator';
 
 const GameCreation = (props) => {
-  useEffect(() => { (async () => { await axios.get(config.wakeServer) })() })
   const client = new Colyseus.Client(config.gameServer);
 
   const [connectionMsg, setConnectionMsg] = useState(null)

@@ -8,6 +8,7 @@ import SendLinkPrompt from "./sendLinkPrompt"
 import StartGameButton from "./startGameButton"
 import ProfileCreator from './profileCreator'
 import GameFinishMessage, { PlayerFinishedMessage } from './gameFinishMessage'
+import GameRoomNotFound from './gameRoomNotFound'
 
 import "./withFriends.css"
 import NumPlayersDisplay from "./numPlayersDisplay";
@@ -18,14 +19,7 @@ class GamePlay extends Component {
 
     this.state = {
       joined: false,
-      joinError:
-        <React.Fragment>
-          Connecting to the game room...
-          <p>The server is hosted on a heroku free plan which may take up to 30s to wake up, but
-            after it wakes up it stays awake for at least 30 minutes or while there are still connections.</p>
-
-        </React.Fragment>,
-
+      joinError: "Connecting to the game room...",
       players: {},
       countdown: 4,
       countingDown: false,
@@ -48,7 +42,7 @@ class GamePlay extends Component {
       rooms.forEach(room => {
         if (room.roomId === this.props.match.params.gameId) matchFound = true
       })
-      if (!matchFound) this.setState({ joinError: "Game room not found..." })
+      if (!matchFound) this.setState({ joinError: <GameRoomNotFound /> })
       else this.setState({ joinError: null })
     }
 

@@ -4,6 +4,10 @@ import App from "./App";
 import { HashRouter } from "react-router-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
+import axios from 'axios'
+import config from "./config";
+
+(async () => { await axios.get(config.wakeServer) })();
 
 ReactDOM.render(
   <HashRouter basename="/">

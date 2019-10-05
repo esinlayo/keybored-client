@@ -83,12 +83,12 @@ class SinglePlayer extends Component {
     this.setState({ startTime: new Date().getTime() });
   };
 
-  handleGameFinish = speed => {
-    if (speed) {
-      if (speed > this.state.highScore) this.setState({ highScore: speed });
-      this.setState({ score: speed });
+  handleGameFinish = score => {
+    if (score) {
+      if (score > this.state.highScore) this.setState({ highScore: score });
+      this.setState({ score });
 
-      if (this.state.enableScoreSubmission) this.submitScores(speed);
+      if (this.state.enableScoreSubmission && score >= 0 && score < 180) this.submitScores(score);
     }
     this.setState({ startTime: null, progress: 0 });
   };

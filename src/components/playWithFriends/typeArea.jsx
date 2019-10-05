@@ -39,6 +39,12 @@ class TypeArea extends Component {
         if (!this.props.gameStarted) return;
         const { textToType } = this.props;
         const textTyped = input.value;
+        const probablyCheating = (textTyped) => {
+            const typedAmountDelta = textTyped.length - this.state.textTyped.length
+            if (typedAmountDelta > 1) return true;
+            return false;
+        }
+        if (probablyCheating(textTyped)) return;
         const changeIdx = textTyped.length - 1;
         const typedChar = [...textTyped][changeIdx];
         const charToType = [...textToType][changeIdx];

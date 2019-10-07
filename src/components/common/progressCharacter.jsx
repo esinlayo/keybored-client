@@ -1,7 +1,7 @@
 import React from "react";
 
 import background_img from "../../img/background-original.png";
-import cartoon_car from "../../img/cartoon-car2.png";
+import cartoon_car from "../../img/cartoon-car.png";
 
 import "./icons-style.css"
 

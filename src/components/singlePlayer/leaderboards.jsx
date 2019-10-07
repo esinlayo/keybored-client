@@ -25,39 +25,27 @@ class Leaderboards extends Component {
   render() {
     const { mostRecentScores, leaderboard2Days } = this.props;
     return (
-      <div id="leaderboards1">
-        <div id="leaderboards2">
-          <center>
-            <table>
-              <tbody>
-                <tr>
-                  {mostRecentScores.length !== 0 ? <React.Fragment>
-                    <td style={{ verticalAlign: "top" }}>
-                      <Leaderboard
-                        leaderboard={mostRecentScores}
-                        title="Most Recent Scores"
-                        showRank={false}
-                        dateOptions={"mmdd,time"}
-                      />
-                    </td>
-                    <td style={{ verticalAlign: "top" }}>
-                      <Leaderboard
-                        leaderboard={leaderboard2Days}
-                        title="High Scores - Past Two Days"
-                        showRank={true}
-                        dateOptions={""}
-                      />
-                    </td>
-                  </React.Fragment> :
-                    <td style={{ padding: "4%" }}>
-                      {this.state.connectingMessage}
-                    </td>}
-                </tr>
-              </tbody>
-            </table>
-          </center>
-        </div>
-      </div>
+      <div id="leaderboards1"><div id="leaderboards2">
+        <center><table><tbody><tr>
+          {mostRecentScores.length === 0 ? <td style={{ padding: "4%" }}>{this.state.connectingMessage}</td> :
+            <React.Fragment>
+              <td style={{ verticalAlign: "top" }}>
+                <Leaderboard
+                  leaderboard={mostRecentScores}
+                  title="Most Recent Scores"
+                  showRank={false}
+                  dateOptions={"mmdd,time"} />
+              </td>
+              <td style={{ verticalAlign: "top" }}>
+                <Leaderboard
+                  leaderboard={leaderboard2Days}
+                  title="High Scores - Past Two Days"
+                  showRank={true}
+                  dateOptions={""} />
+              </td>
+            </React.Fragment>}
+        </tr></tbody></table></center>
+      </div></div>
     );
   };
 }
@@ -83,22 +71,11 @@ class Leaderboard extends Component {
   }
 
   render() {
-    return (
-      <table
-        className="leaderboard"
-        style={{ minWidth: "200px", minHeight: "270px" }}
-      >
-        <tbody style={{ display: "table", width: "100%" }}>
-          <tr>
-            <th colSpan="3" align="left">
-              {this.props.title}
-            </th>
-          </tr>
-          {this.renderTableHeader()}
-          {this.renderLeaderboard()}
-        </tbody>
-      </table>
-    );
+    return (<table className="leaderboards3"><tbody style={{ display: "table", width: "100%" }}>
+      <tr><th colSpan="3" align="left">{this.props.title}</th></tr>
+      {this.renderTableHeader()}
+      {this.renderLeaderboard()}
+    </tbody></table>);
   }
 
   renderLeaderboard() {
@@ -106,19 +83,8 @@ class Leaderboard extends Component {
       <React.Fragment>
         {this.props.leaderboard.map((entry, idx) => {
           return (
-            <tr
-              key={idx}
-              className={`${
-                this.state.changedIndices.includes(idx)
-                  ? "newScoreEffect"
-                  : ""
-                }`}
-            >
-              {this.props.showRank ? (
-                <td align="right" style={{ paddingRight: "5px" }}>
-                  {idx + 1}
-                </td>
-              ) : null}
+            <tr key={idx} className={`${this.state.changedIndices.includes(idx) ? "newScoreEffect" : ""}`}>
+              {this.props.showRank ? <td align="right" style={{ paddingRight: "5px" }}>{idx + 1} </td> : null}
               <td align="left">{entry.name}</td>
               <td> {Math.round(entry.score)}</td>
               {this.props.dateOptions
@@ -134,40 +100,25 @@ class Leaderboard extends Component {
   renderTableHeader() {
     return (
       <React.Fragment>
-        {this.props.leaderboard.length > 0 ? (
+        {this.props.leaderboard.length <= 0 ? null :
           <tr>
             {this.props.showRank ? <td></td> : null}
-            <td align="left">
-              <i>Name</i>
-            </td>
-            <td>
-              <i>Score</i>
-            </td>
-            {this.props.dateOptions ? (
-              <td align="right">
-                <i>Date (UTC)</i>
-              </td>
-            ) : null}
-          </tr>
-        ) : null}
+            <td align="left"><i>Name</i></td>
+            <td><i>Score</i></td>
+            {this.props.dateOptions ? <td align="right"><i>Date (UTC)</i></td> : null}
+          </tr>}
       </React.Fragment>
     );
   }
   formatDate(date, options) {
     if (options === "mmdd,time")
-      return (
-        <td>
-          {`${date.split("T")[0].substring(5).replace("-", "/")} 
+      return (<td>
+        {`${date.split("T")[0].substring(5).replace("-", "/")} 
             ${date.split("T")[1].substring(0, 5).replace("-", "/")}`}
-        </td>
-      );
+      </td>);
 
     if (options === "yymmdd")
-      return (
-        <td>
-          {`${date.split("T")[0].substring(5).replace("-", "/")} ${date.split("T")[1].substring(0, 5).replace("-", "/")}`}
-        </td>
-      );
+      return <td>{`${date.split("T")[0].substring(5).replace("-", "/")} ${date.split("T")[1].substring(0, 5).replace("-", "/")}`}</td>;
     return "";
   }
 }

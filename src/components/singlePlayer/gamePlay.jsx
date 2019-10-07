@@ -139,13 +139,8 @@ class GamePlay extends Component {
     }
 
     updateLdrBoardOptimistically = score => {
+        const scoreEntry = { name: this.state.nameForScores, score, date: JSON.stringify(new Date(Date.now())) };
         const origMostRecent = this.state.mostRecentScores;
-        const orig2Days = this.state.leaderboard2Days;
-        const scoreEntry = {
-            name: this.state.nameForScores,
-            score,
-            date: JSON.stringify(new Date(Date.now()))
-        };
 
         let mostRecentScores = [
             scoreEntry,
@@ -153,14 +148,16 @@ class GamePlay extends Component {
         ];
         if (mostRecentScores.length > 10)
             mostRecentScores = mostRecentScores.slice(0, 10);
-
-        const replacementIdx = orig2Days.findIndex(e => e < score);
-        if (replacementIdx !== -1)
-            this.setState({
-                leaderboard2Days: orig2Days.splice(replacementIdx, 1, scoreEntry)
-            });
-
         this.setState({ mostRecentScores });
+
+
+        // const origTopScoresIn2Days = this.state.leaderboard2Days;
+        /* different paths for optimistic update:
+        - if score is lower than all entries in the leaderboard (no leaderboard change)
+        - if name just beat a score, but wasn't previously on the leaderboard
+        - if name already in the leaderboard but has lower score (no leaderboard change)
+        - if name already in the leaderboard and position changes
+        */
     }
 }
 

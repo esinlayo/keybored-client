@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./gameContainer.css";
 
 class Leaderboards extends Component {
   constructor() {

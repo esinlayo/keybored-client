@@ -1,17 +1,13 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import "./gameContainer/gameContainer.css";
 
 const Index = () => {
   return (
-    <React.Fragment>
-      <div id="modeSelection" style={{ height: "100%" }} >
-        <BigButton to="/play" text="Single player" />
-        <BigButton to="/withfriends" text="Invite friends to play" />
-
-      </div>
-    </React.Fragment>
+    <div id="modeSelection" style={{ height: "100%" }} >
+      <BigButton to="/play" text="Single player" />
+      <BigButton to="/withfriends" text="Invite friends to play" />
+    </div>
   );
 };
 
@@ -28,9 +24,7 @@ function BigButton(props) {
           maxWidth: "400px"
         }}
         component={Link} to={props.to}
-        variant="contained"
-        color="primary"
-        size="medium">
+        variant="contained" color="primary" size="medium">
         {props.text}
       </Button>
     </div>

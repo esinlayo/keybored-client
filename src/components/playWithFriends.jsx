@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-
-import "./gameContainer/gameContainer.css";
 import { Switch, Route } from "react-router-dom";
+
 import GameCreation from "./playWithFriends/gameCreation";
 import GamePlay from "./playWithFriends/gamePlay";
+
+import "./common/style.css";
 
 class PlayWithFriends extends Component {
   render() {

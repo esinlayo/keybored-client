@@ -1,0 +1,66 @@
+.gameContainer {
+    text-align: center;
+    display: inline-block;
+    width: 70%;
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 10px;
+    border-color: #3f51b5;
+    min-height: 325px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+}
+
+/* styles related to progress container */
+#progressContainer {
+    position: relative;
+    width: 100%;
+    text-align: left;
+    min-height: 5rem;
+    vertical-align: text-bottom;
+}
+
+/* styles related to typebox */
+#typeBox {
+    margin-right: 2%;
+    vertical-align: middle;
+    display: inline;
+}
+#typeboxContainer {
+    position: relative;
+    width: 100%;
+    text-align: left;
+    display: inline-block;
+}
+  
+.typeBoxWrapping {
+    font-weight: normal;
+    word-break: break-all;
+    white-space: break-spaces;
+}
+.typeBox {
+    width: 90%;
+    position: absolute;
+    left: 5%;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    min-height: 150px;
+}
+#typeMeBox {
+    color: #c0c0c0;
+}
+#typedInputBox {
+    background-color: rgba(0, 0, 0, 0) !important;
+    border: none !important;
+    outline: none;
+    height: 100%;
+    resize: none;
+    overflow: hidden;
+    overflow-x: hidden;
+}
+  
+.highlightError {
+    background: red;
+    display: inline;
+}

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import TypeBox from "./../common/typeBox";
+import TypeBox from "../common/typeBox";
 import ControlBox from "./controlBox";
 import Instructions from "./instructions";
 import LeaderboardNameInput from "./leaderboardNameInput";
 
-import { getTextToType, generateIdx } from "./../../services";
+import { getTextToType, generateIdx } from "../../services";
 
 class TypeArea extends Component {
   constructor() {

@@ -173,6 +173,8 @@ class TypeArea extends Component {
       textToType: this.getTransformed(getTextToType(passageIdx), newSettings),
       textTyped: "",
       error: "",
+      hasError: false,
+      lastErrorIdx: null,
       startTime: null
     });
     this.typedInputBox.current.focus();

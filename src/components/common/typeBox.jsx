@@ -1,35 +1,31 @@
 import React, { Component } from "react";
 import Typography from "@material-ui/core/Typography";
 
-class TypeMeBox extends Component {
-  render() {
-    return (
-      <div
-        id={this.props.id}
-        className={"form-control " + this.props.className}
-        style={{ position: "relative" }}
-      >
-        {this.renderFeedback()}
-      </div>
-    );
-  }
-
-  renderFeedback = () => {
-    const { textToType, lastErrorIdx, error } = this.props;
-    if (lastErrorIdx !== null) {
-      return (
-        <React.Fragment>
-          <span>{textToType.substring(0, lastErrorIdx)}</span>
-          <span className="highlightError typeBoxWrapping">{error}</span>
-          <span>{textToType.substring(lastErrorIdx)}</span>
-        </React.Fragment>
-      );
-    } else {
-      return <React.Fragment>{textToType}</React.Fragment>;
-    }
-  };
+function TypeMeBox(props) {
+  return (
+    <div
+      id={props.id} className={"form-control " + props.className}
+      style={{ position: "relative" }}>
+      {(() => {
+        const { textToType, lastErrorIdx, error } = props;
+        if (lastErrorIdx !== null) {
+          return (
+            <React.Fragment>
+              <span>{textToType.substring(0, lastErrorIdx)}</span>
+              <span className="highlightError typeBoxWrapping">{error}</span>
+              <span>{textToType.substring(lastErrorIdx)}</span>
+            </React.Fragment>
+          );
+        } else { return <React.Fragment>{textToType}</React.Fragment> }
+      })()}
+    </div>
+  );
 }
 
+/**************************************************************
+Use TypeBox with a higher order component **typeArea***. 
+See src/singlePlayer/typeArea and src/withFriends/typeArea 
+**************************************************************/
 const TypeBox = props => {
   return (
     <div id="typeboxContainer">
@@ -63,10 +59,6 @@ const TypeBox = props => {
     </div>
   );
 };
-
-
-
-
 
 
 export default TypeBox;

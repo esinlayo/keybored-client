@@ -8,12 +8,14 @@ import "./icons-style.css"
 export const characters = ["Car", "Truck", "Monster Truck", "Helicopter", "Fighter Jet", "Motorcycle", "Airplane", "Bicycle", "Wheelchair", "Baby Carriage", "Horse", "Shopping Cart"]
 export const colors = ["Red", "Green", "Blue", "Yellow", "Orange", "Purple"]
 export function getCharacterClassName(idx) { return characters[idx].toLowerCase().replace(" ", "-") }
+export function getCharacterColor(idx) { return colors[idx] }
 
 export const Character = props => {
   const renderCharacter = () => {
     return (props.character === "single-player" ?
       <img src={cartoon_car} alt="a cool car" width="100" /> :
-      <span className={"icon-" + getCharacterClassName(props.character)} style={{ color: props.color }} />
+      <span className={"icon-" + getCharacterClassName(props.character)}
+        style={{ color: getCharacterColor(props.color) }} />
     );
   }
   const renderDisplayName = () => {

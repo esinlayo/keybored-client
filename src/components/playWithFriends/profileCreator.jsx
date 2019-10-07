@@ -12,7 +12,7 @@ import { Character, characters, colors } from "../common/progressCharacter"
 const ProfileCreator = (props) => {
     const [name, setName] = useState(generateRandomLeaderboardName());
     const [character, setCharacter] = useState(Math.floor(Math.random() * characters.length))
-    const [color, setColor] = useState(colors[Math.floor(Math.random() * colors.length)])
+    const [color, setColor] = useState(Math.floor(Math.random() * colors.length))
 
     return (
         <React.Fragment>
@@ -38,7 +38,7 @@ const ProfileCreator = (props) => {
                         <InputLabel>Color</InputLabel>
                         <Select native value={color} onChange={e => setColor(e.target.value)}>
                             {colors.map((val, idx) => {
-                                return <option key={idx} value={val}>{val}</option>
+                                return <option key={idx} value={idx}>{val}</option>
                             })}
                         </Select>
                     </FormControl>

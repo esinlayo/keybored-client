@@ -1,3 +1,5 @@
+import React, { useEffect } from 'react'
+
 const passages = [
   "It takes a courageous fool to say things that have not been said and to do things that have not been done.",
   "If you live to be 100, I hope I live to be 100 minus 1 day, so I never have to live without you.",
@@ -71,4 +73,23 @@ export function generateRandomLeaderboardName() {
   const adj = adjectives[Math.floor(Math.random() * (adjectives.length))];
   const being = beings[Math.floor(Math.random() * (beings.length))];
   return `${adj} ${being}`;
+}
+
+export function Analytics({ page_name, page_group }) {
+  var wtsh = {};
+
+  wtsh['invisible'] = '#';
+  wtsh['text_counter'] = '#';
+  wtsh['page_name'] = page_name === undefined ? '#' : page_name;
+  wtsh['page_group'] = page_group === undefined ? '#' : page_group;
+  wtsh['conversion_number'] = '#';
+
+  var wts = document.createElement('script');
+  wts.type = 'text/javascript';
+  wts.async = true;
+  wts.src = 'https://wts.one/3/1908330/log6_2.js';
+
+  useEffect(() => { document.getElementById('wts1908330').appendChild(wts) })
+
+  return (<span id="wts1908330">&nbsp;</span>)
 }

@@ -5,8 +5,14 @@ import GamePlay from './singlePlayer/gamePlay'
 import "./common/style.css";
 import './singlePlayer/singlePlayer.css'
 
+import { Analytics } from "./../services"
+
+
 const SinglePlayer = () => {
-  return <GamePlay />;
+  return (<React.Fragment>
+    <GamePlay />
+    <Analytics page_name="SINGLEPLAYER" />
+  </React.Fragment>);
 }
 
 export default SinglePlayer;

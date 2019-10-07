@@ -2,11 +2,14 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 
+import { Analytics } from "./../services"
+
 const Index = () => {
   return (
     <div id="modeSelection" style={{ height: "100%" }} >
       <BigButton to="/play" text="Single player" />
       <BigButton to="/withfriends" text="Invite friends to play" />
+      <Analytics page_name="HOME" />
     </div>
   );
 };

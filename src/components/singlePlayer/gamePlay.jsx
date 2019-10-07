@@ -18,6 +18,7 @@ axios.interceptors.response.use(null, err => {
 class GamePlay extends Component {
     constructor() {
         super();
+        this._isMounted = false;
         this.state = {
             progress: 0,
 
@@ -34,8 +35,10 @@ class GamePlay extends Component {
     }
 
     async componentDidMount() {
+        this._isMounted = true;
         await this.updateLeaderboards();
     }
+    componentWillUnmount() { this._isMounted = false }
 
     render() {
         return (
@@ -128,13 +131,15 @@ class GamePlay extends Component {
         try {
             const { data } = await axios.get(config.scoresApi);
             const { mostRecentScores, topScores } = data;
-            this.setState({ leaderboard2Days: topScores, mostRecentScores });
+            if (this._isMounted) this.setState({ leaderboard2Days: topScores, mostRecentScores });
         } catch (ex) {
             console.log("Something failed while trying to update leaderboards with the new score.")
-            this.setState({
-                leaderboard2Days: orig2Days,
-                mostRecentScores: origMostRecent
-            });
+            if (this._isMounted) {
+                this.setState({
+                    leaderboard2Days: orig2Days,
+                    mostRecentScores: origMostRecent
+                });
+            }
         }
     }
 

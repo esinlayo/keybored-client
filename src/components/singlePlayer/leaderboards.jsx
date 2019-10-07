@@ -3,23 +3,28 @@ import React, { Component } from "react";
 class Leaderboards extends Component {
   constructor() {
     super()
+    this._isMounted = false;
     this.state = { connectingMessage: <font color="white">"."</font> } // not a hack
     setInterval(this.showConnectingMessage, 1000)
   }
 
-  showConnectingMessage = () => {
-    return (
-      this.setState({
-        connectingMessage: <React.Fragment>
-          <p>Connecting to the server...</p>
-          <p>You can continue to play the game offline while we try to connect.<br />
-            Your scores may still be submitted after connection is established.</p>
+  componentDidMount() { this._isMounted = true; }
+  componentWillUnmount() { this._isMounted = false; }
 
-          <p>The server is hosted on a heroku free plan which may take up to 30s to wake up, but
+  showConnectingMessage = () => {
+    if (this._isMounted)
+      return (
+        this.setState({
+          connectingMessage: <React.Fragment>
+            <p>Connecting to the server...</p>
+            <p>You can continue to play the game offline while we try to connect.<br />
+              Your scores may still be submitted after connection is established.</p>
+
+            <p>The server is hosted on a heroku free plan which may take up to 30s to wake up, but
             after it wakes up it stays awake for at least 30 minutes or while there are still connections.</p>
-        </React.Fragment>
-      })
-    )
+          </React.Fragment>
+        })
+      )
   }
 
   render() {

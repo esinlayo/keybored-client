@@ -6,31 +6,33 @@ const passages = [
   "What you do not want done to yourself, do not do to others.",
   "Youth is the best time to be rich; and the best time to be poor.",
   "Time is a funny thing. You can go through it and meddle with it, but nothing can stay permanent.",
-  "You have the right to be wrong. For how long, who knows?.",
+  "You have the right to be wrong. For how long, who knows?",
   "Uncharted territory is a good place to be in. You can draw all over it.",
-  "Poetic talent is really easy to fake when thy sentences doth no sense make",
+  "Poetic talent is really easy to fake when thy sentences doth no sense make.",
   "When life gets you down, make a comforter. Then take a happy nap.",
   "If Jesus can walk on water, can he swim on land?",
   "What do you call a kid with no arms and an eyepatch? Names.",
   "It's kind of fun to do the impossible. Do it impossibly.",
   "There is no pleasure in having nothing to do; the fun is having lots to do and not doing it.",
-  "Life is either a daring adventure or nothing at all",
+  "Life is either a daring adventure or nothing at all.",
   "All life is an experiment. The more experiments you make the better.",
-  "It's so simple to be wise... just think of something stupid to say and then don't say it",
+  "It's so simple to be wise... just think of something stupid to say and then don't say it.",
   "If you are not willing to risk the unusual, you will have to settle for the ordinary.",
   "The risk of a wrong decision is preferable to the terror of indecision.",
   "There's something liberating about not pretending. Dare to embarrass yourself. Risk.",
   "To win without risk is to triumph without glory.",
   "Man cannot discover new oceans unless he has the courage to lose sight of the shore.",
-  "Weaseling out of things is important to learn. It's what separates us from the animals...except the weasel"
+  "Weaseling out of things is important to learn. It's what separates us from the animals...except the weasel."
 ];
 
 export function getTextToType(idx) {
   return passages[idx];
 }
 
-export function generateIdx() {
-  return Math.floor(Math.random() * (passages.length - 1));
+export function generateIdx(oldIdx) {
+  let newIdx = Math.floor(Math.random() * (passages.length))
+  if (oldIdx !== undefined) { while (newIdx === oldIdx) newIdx = Math.floor(Math.random() * (passages.length)) }
+  return newIdx;
 }
 
 const adjectives = [

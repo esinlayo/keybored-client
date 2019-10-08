@@ -167,7 +167,7 @@ class TypeArea extends Component {
   };
 
   handleNewPassage = newSettings => {
-    const passageIdx = generateIdx();
+    const passageIdx = generateIdx(this.state.passageIdx);
     this.setState({
       passageIdx,
       textToType: this.getTransformed(getTextToType(passageIdx), newSettings),

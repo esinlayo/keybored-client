@@ -6,13 +6,13 @@ const passages = [
   "What you do not want done to yourself, do not do to others.",
   "Youth is the best time to be rich; and the best time to be poor.",
   "Time is a funny thing. You can go through it and meddle with it, but nothing can stay permanent.",
-  "You have the right to be wrong.",
-  "Uncharted territory is a good place to be in.",
+  "You have the right to be wrong. For how long, who knows?.",
+  "Uncharted territory is a good place to be in. You can draw all over it.",
   "Poetic talent is really easy to fake when thy sentences doth no sense make",
-  "When life gets you down, make a comforter.",
+  "When life gets you down, make a comforter. Then take a happy nap.",
   "If Jesus can walk on water, can he swim on land?",
   "What do you call a kid with no arms and an eyepatch? Names.",
-  "It's kind of fun to do the impossible.",
+  "It's kind of fun to do the impossible. Do it impossibly.",
   "There is no pleasure in having nothing to do; the fun is having lots to do and not doing it.",
   "Life is either a daring adventure or nothing at all",
   "All life is an experiment. The more experiments you make the better.",
@@ -46,8 +46,7 @@ const adjectives = [
   "Madam",
   "Top Notch",
   "Top",
-  "Bottom",
-  "42nd"
+  "Nice"
 ];
 const beings = [
   "Meme",

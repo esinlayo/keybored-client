@@ -29,8 +29,7 @@ const GameCreation = (props) => {
     <React.Fragment>
       {creationComplete
         ? <Redirect to={{ pathname: `/withfriends/${room.id}`, state: { room, client } }} />
-        :
-        <React.Fragment>
+        : <React.Fragment>
           {connectionMsg !== null ? <React.Fragment>{connectionMsg}</React.Fragment> :
             <ProfileCreator create={submitProfile} />}
         </React.Fragment>}

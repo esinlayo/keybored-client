@@ -30,35 +30,31 @@ class Leaderboards extends Component {
   render() {
     const { mostRecentScores, leaderboard2Days } = this.props;
     return (
-      <div id="leaderboards1"><div id="leaderboards2">
-        <center><table><tbody><tr>
-          {mostRecentScores.length === 0 ? <td style={{ padding: "4%" }}>{this.state.connectingMessage}</td> :
-            <React.Fragment>
-              <td style={{ verticalAlign: "top" }}>
-                <Leaderboard
-                  leaderboard={mostRecentScores}
-                  title="Most Recent Scores"
-                  showRank={false}
-                  dateOptions={"mmdd,time"} />
-              </td>
-              <td style={{ verticalAlign: "top" }}>
-                <Leaderboard
-                  leaderboard={leaderboard2Days}
-                  title="High Scores - Past Two Days"
-                  showRank={true}
-                  dateOptions={""} />
-              </td>
-            </React.Fragment>}
-        </tr></tbody></table></center>
-      </div></div>
+      <div id="leaderboards1"><div id="leaderboards2"><center><table><tbody><tr>
+        {mostRecentScores.length === 0 ? <td style={{ padding: "4%" }}>{this.state.connectingMessage}</td> :
+          <React.Fragment>
+            <td style={{ verticalAlign: "top" }}>
+              <Leaderboard
+                leaderboard={mostRecentScores}
+                title="Most Recent Scores"
+                showRank={false}
+                dateOptions={"mmdd,time"} />
+            </td>
+            <td style={{ verticalAlign: "top" }}>
+              <Leaderboard
+                leaderboard={leaderboard2Days}
+                title="High Scores - Past Two Days"
+                showRank={true}
+                dateOptions={""} />
+            </td>
+          </React.Fragment>}
+      </tr></tbody></table></center></div></div>
     );
   };
 }
 
 class Leaderboard extends Component {
-  state = {
-    changedIndices: []
-  };
+  state = { changedIndices: [] };
 
   componentDidUpdate(prevProps, prevState) {
     const prevS = JSON.stringify(prevProps.leaderboard);
@@ -87,16 +83,14 @@ class Leaderboard extends Component {
     return (
       <React.Fragment>
         {this.props.leaderboard.map((entry, idx) => {
-          return (
-            <tr key={idx} className={`${this.state.changedIndices.includes(idx) ? "newScoreEffect" : ""}`}>
-              {this.props.showRank ? <td align="right" style={{ paddingRight: "5px" }}>{idx + 1} </td> : null}
-              <td align="left">{entry.name}</td>
-              <td> {Math.round(entry.score)}</td>
-              {this.props.dateOptions
-                ? this.formatDate(entry.date, this.props.dateOptions)
-                : null}
-            </tr>
-          );
+          return (<tr key={idx} className={`${this.state.changedIndices.includes(idx) ? "newScoreEffect" : ""}`}>
+            {this.props.showRank ? <td align="right" style={{ paddingRight: "5px" }}>{idx + 1} </td> : null}
+            <td align="left">{entry.name}</td>
+            <td> {Math.round(entry.score)}</td>
+            {this.props.dateOptions
+              ? this.formatDate(entry.date, this.props.dateOptions)
+              : null}
+          </tr>);
         })}
       </React.Fragment>
     );

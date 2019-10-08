@@ -27,8 +27,7 @@ class TypeArea extends Component {
                     lastErrorIdx={this.state.lastErrorIdx}
                     error={this.state.error}
                     typedInputBox={this.typedInputBox}
-                    handleChange={this.handleChange}
-                />
+                    handleChange={this.handleChange} />
             </div>
         );
     }

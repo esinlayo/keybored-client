@@ -178,7 +178,7 @@ class GamePlay extends Component {
 
 /*
 const { useState, useEffect } = require('react')
-const GameJoinFail = (props) => {
+const GameJoinAttemptedHooks = (props) => {
   const [joinComplete, setJoinComplete] = useState(false)
   const [joinError, setJoinError] = useState(null)
   const [textToType, setTextToType] = useState("")

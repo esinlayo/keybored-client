@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import "typeface-roboto";
 
 import AppBar from "@material-ui/core/AppBar";

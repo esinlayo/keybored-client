@@ -25,8 +25,7 @@ class GamePlay extends Component {
 
             startTime: null,
 
-            score: null,
-            highScore: null,
+            score: null, highScore: null,
 
             enableScoreSubmission: true,
             nameForScores: generateRandomLeaderboardName(),
@@ -47,10 +46,7 @@ class GamePlay extends Component {
                 <div className="gameContainer">
                     <ProgressCharacter progress={this.state.progress} character="single-player" />
                     <div style={{ textAlign: "right" }}>
-                        <ScoresBox
-                            score={this.state.score}
-                            highScore={this.state.highScore}
-                        />
+                        <ScoresBox score={this.state.score} highScore={this.state.highScore} />
                         <TypeArea
                             onChange={this.handleChange}
                             onGameFinish={this.handleGameFinish}
@@ -59,18 +55,14 @@ class GamePlay extends Component {
                             onLeaderboardNameChange={this.handleLeaderboardNameChange}
                             nameForScores={this.state.nameForScores}
                             enableScoreSubmission={this.state.enableScoreSubmission}
-                            onChangeScoreSubmissionSettings={
-                                this.handleChangeScoreSubmissionSettings
-                            }
-                            leaderboardRetrieved={this.state.mostRecentScores.length !== 0}
-                        />
+                            onChangeScoreSubmissionSettings={this.handleChangeScoreSubmissionSettings}
+                            leaderboardRetrieved={this.state.mostRecentScores.length !== 0} />
                     </div>
                 </div>
                 <div className="gameContainer">
                     <Leaderboards
                         mostRecentScores={this.state.mostRecentScores}
-                        leaderboard2Days={this.state.leaderboard2Days}
-                    />
+                        leaderboard2Days={this.state.leaderboard2Days} />
                 </div>
             </React.Fragment>
         );
@@ -136,10 +128,7 @@ class GamePlay extends Component {
         } catch (ex) {
             if (this._isMounted) {
                 console.log("An unexpected error occurred while trying to update the leaderboards.")
-                this.setState({
-                    leaderboard2Days: orig2Days,
-                    mostRecentScores: origMostRecent
-                });
+                this.setState({ leaderboard2Days: orig2Days, mostRecentScores: origMostRecent });
             }
         }
     }

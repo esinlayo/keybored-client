@@ -12,14 +12,8 @@ class TypeArea extends Component {
     this.typedInputBox = React.createRef();
 
     const passageIdx = generateIdx();
-    const nextPassageSettings = {
-      capsEnabled: true,
-      punctuationEnabled: true
-    };
-    const textToType = this.getTransformed(
-      getTextToType(passageIdx),
-      nextPassageSettings
-    );
+    const nextPassageSettings = { capsEnabled: true, punctuationEnabled: true };
+    const textToType = this.getTransformed(getTextToType(passageIdx), nextPassageSettings);
 
     this.state = {
       passageIdx,
@@ -27,9 +21,7 @@ class TypeArea extends Component {
       nextPassageSettings,
       textTyped: "",
 
-      error: "",
-      lastErrorIdx: null,
-      hasError: false
+      error: "", lastErrorIdx: null, hasError: false
     };
   }
 
@@ -42,8 +34,7 @@ class TypeArea extends Component {
           onRestart={go => this.handleRestart(nextPassageSettings)}
           onNewPassage={go => this.handleNewPassage(nextPassageSettings)}
           startTime={this.props.startTime}
-          nextPassageSettings={nextPassageSettings}
-        />
+          nextPassageSettings={nextPassageSettings} />
         <Instructions startTime={this.props.startTime} />
         <TypeBox
           textToType={this.state.textToType}
@@ -51,14 +42,12 @@ class TypeArea extends Component {
           lastErrorIdx={this.state.lastErrorIdx}
           error={this.state.error}
           typedInputBox={this.typedInputBox}
-          handleChange={this.handleChange}
-        />
+          handleChange={this.handleChange} />
         <LeaderboardNameInput
           onOptionsChange={this.handleOptions}
           onLeaderboardNameChange={val => this.handleNameChange(val)}
           enableScoreSubmission={this.props.enableScoreSubmission}
-          nameForScores={this.props.nameForScores}
-        />
+          nameForScores={this.props.nameForScores} />
       </div>
     );
   }
@@ -100,10 +89,7 @@ class TypeArea extends Component {
 
     if (hasError) error = textTyped.substring(lastErrorIdx);
 
-    const progress =
-      lastErrorIdx !== null
-        ? lastErrorIdx / textToType.length
-        : textTyped.length / textToType.length;
+    const progress = lastErrorIdx !== null ? lastErrorIdx / textToType.length : textTyped.length / textToType.length;
     this.props.onChange(progress);
 
     if (!hasError && textTyped.length === this.state.textToType.length) {
@@ -115,34 +101,25 @@ class TypeArea extends Component {
     }
 
     this.setState({
-      textTyped,
-      hasError,
-      lastErrorIdx,
-      error,
-      startTime
+      textTyped, startTime,
+      hasError, lastErrorIdx, error,
     });
   };
 
   getTransformed = (text, newSettings) => {
     let transformedText = text;
-    const nextPassageSettings = newSettings
-      ? newSettings
-      : this.state.nextPassageSettings;
+    const nextPassageSettings = newSettings ? newSettings : this.state.nextPassageSettings;
     const { capsEnabled, punctuationEnabled } = nextPassageSettings;
 
     if (!capsEnabled) transformedText = transformedText.toLowerCase();
     if (!punctuationEnabled)
-      transformedText = transformedText.replace(
-        /['".,/#!$%^&*;:{}=\-_`~()?]/g,
-        ""
-      );
+      transformedText = transformedText.replace(/['".,/#!$%^&*;:{}=\-_`~()?]/g, "");
 
     return transformedText;
   };
 
   handleOptions = x => {
-    if ("enableScoreSubmission" in x)
-      this.props.onChangeScoreSubmissionSettings();
+    if ("enableScoreSubmission" in x) this.props.onChangeScoreSubmissionSettings();
 
     const nextPassageSettings = { ...this.state.nextPassageSettings, ...x };
     this.setState({ nextPassageSettings });
@@ -152,15 +129,9 @@ class TypeArea extends Component {
 
   handleRestart = newSettings => {
     this.setState({
-      textToType: this.getTransformed(
-        getTextToType(this.state.passageIdx),
-        newSettings
-      ),
-      textTyped: "",
-      error: "",
-      hasError: false,
-      lastErrorIdx: null,
-      startTime: null
+      textToType: this.getTransformed(getTextToType(this.state.passageIdx), newSettings),
+      textTyped: "", startTime: null,
+      error: "", hasError: false, lastErrorIdx: null
     });
     this.typedInputBox.current.focus();
     this.props.onGameFinish();
@@ -171,11 +142,8 @@ class TypeArea extends Component {
     this.setState({
       passageIdx,
       textToType: this.getTransformed(getTextToType(passageIdx), newSettings),
-      textTyped: "",
-      error: "",
-      hasError: false,
-      lastErrorIdx: null,
-      startTime: null
+      textTyped: "", startTime: null,
+      error: "", hasError: false, lastErrorIdx: null,
     });
     this.typedInputBox.current.focus();
     this.props.onGameFinish();

@@ -26,40 +26,26 @@ const ProfileCreator = (props) => {
                         <Character character={character} color={color} />
                     </div></div>
                 <div style={{ display: "inline-block", textAlign: "left" }}>
-                    <TextField
-                        label="Name"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                        margin="normal"
-                        style={{ width: "100%" }}
-                    />
+                    <TextField label="Name" value={name} onChange={e => setName(e.target.value)}
+                        margin="normal" style={{ width: "100%" }} />
                     <br />
                     <FormControl>
                         <InputLabel>Color</InputLabel>
                         <Select native value={color} onChange={e => setColor(e.target.value)}>
-                            {colors.map((val, idx) => {
-                                return <option key={idx} value={idx}>{val}</option>
-                            })}
+                            {colors.map((val, idx) => { return <option key={idx} value={idx}>{val}</option> })}
                         </Select>
                     </FormControl>
                     <FormControl style={{ padding: "0px 0px 0px 15px" }}>
                         <InputLabel style={{ padding: "0px 0px 0px 15px" }}>Character</InputLabel>
                         <Select native value={character} onChange={e => setCharacter(e.target.value)}>
-                            {characters.map((val, idx) => {
-                                return <option key={idx} value={idx}>{val}</option>
-                            })}
+                            {characters.map((val, idx) => { return <option key={idx} value={idx}>{val}</option> })}
                         </Select>
                     </FormControl>
-                    <br /><center>
-                        <Button
-                            style={{
-                                display: "inline-block",
-                                verticalAlign: "middle",
-                                margin: "10px 0px",
-                            }}
-                            size="small"
-                            color="primary"
-                            variant="contained"
+                    <br />
+                    <center>
+
+                        <Button style={{ display: "inline-block", margin: "10px 0px", }}
+                            size="small" color="primary" variant="contained"
                             onClick={() => props.create({ name, character, color })}>Join</Button>
                     </center>
                 </div></div>

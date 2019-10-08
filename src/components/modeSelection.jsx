@@ -19,12 +19,9 @@ function BigButton(props) {
     <div  >
       <Button
         style={{
-          margin: "10px 0px 0px 0px",
-          padding: "30px 2px",
-          float: "center",
-          clear: "both",
-          width: "80%",
-          maxWidth: "400px"
+          margin: "10px 0px 0px 0px", padding: "30px 2px",
+          float: "center", clear: "both",
+          width: "80%", maxWidth: "400px"
         }}
         component={Link} to={props.to}
         variant="contained" color="primary" size="medium">

@@ -1,11 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import { HashRouter } from "react-router-dom";
-import "./index.css";
+
 import * as serviceWorker from "./serviceWorker";
+
+import App from "./App";
 import axios from 'axios'
 import config from "./config";
+
+import "./index.css";
 
 (async () => { await axios.get(config.wakeServer) })();
 

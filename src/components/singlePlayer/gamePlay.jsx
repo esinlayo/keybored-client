@@ -11,7 +11,8 @@ import { generateRandomLeaderboardName } from "../../services";
 
 
 axios.interceptors.response.use(null, err => {
-    alert(`An unexpected error occured in connecting to the server...\r\nThe server is likely down. :(\r\n${err}`);
+    const msg = (err.response !== undefined) ? `\r\n${err.response.data}` : ""
+    alert(`Sorry, something went wrong on our end! :(\r\n${err}${msg}`);
     return Promise.reject(err);
 })
 
@@ -105,7 +106,7 @@ class GamePlay extends Component {
             });
             this.updateLeaderboards(speed);
         } catch (ex) {
-            console.log("An unexpected error occured while trying to contact the server...", ex);
+            console.log("An unexpected error occured while trying to submit scores:", ex);
         }
     };
 
@@ -133,8 +134,8 @@ class GamePlay extends Component {
             const { mostRecentScores, topScores } = data;
             if (this._isMounted) this.setState({ leaderboard2Days: topScores, mostRecentScores });
         } catch (ex) {
-            console.log("Something failed while trying to update leaderboards with the new score.")
             if (this._isMounted) {
+                console.log("An unexpected error occurred while trying to update the leaderboards.")
                 this.setState({
                     leaderboard2Days: orig2Days,
                     mostRecentScores: origMostRecent

@@ -18,10 +18,7 @@ class Leaderboards extends Component {
           connectingMessage: <React.Fragment>
             <p>Connecting to the server...</p>
             <p>You can continue to play the game offline while we try to connect.<br />
-              Your scores may still be submitted after connection is established.</p>
-
-            <p>The server is hosted on a heroku free plan which may take up to 30s to wake up, but
-            after it wakes up it stays awake for at least 30 minutes or while there are still connections.</p>
+              Your scores will still be submitted after connection is established.</p>
           </React.Fragment>
         })
       )

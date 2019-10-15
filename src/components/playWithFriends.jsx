@@ -6,8 +6,6 @@ import GamePlay from "./playWithFriends/gamePlay";
 
 import "./common/style.css";
 
-import { Analytics } from "./../services"
-
 class PlayWithFriends extends Component {
   render() {
     return (
@@ -16,7 +14,6 @@ class PlayWithFriends extends Component {
           <Route path="/withfriends/:gameId" component={GamePlay} />
           <Route path="/withfriends" exact component={GameCreation} />
         </Switch>
-        <Analytics page_name="WITHFRIENDS" />
       </div>
     );
   }

@@ -1,33 +1,31 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Keybored
 
-In the project directory, you can run:
-
-### `npm start`
+### Development
+`npm start` is what I use for development.
 
 Runs the app in the development mode.<br>
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Staging
+`npm run deploy` is what I use for staging, to https://esinlayo.github.io/keybored
 
-### `npm run build`
+For this setting, the "homepage" field in package.json must be set to `https://esinlayo.github.io/keybored`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This **does** affect the output in build, in that paths will prepend with /keybored
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### Production
 
-TODO: Update paths to remove /keybored/ in index.html, and the generated static css files.
+For this setting, the "homepage" field in package.json must be set to `https://keybored.fun` and run `npm run build`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Note that *npm run deploy* runs this build script as well, so we will be overwriting the build folder, but the staging was uploaded to the github repo already.
 
-### `npm run deploy`
+Now cd into the **build** folder. `scp -r . root@esinlayo.me:/var/www/keybored`
 
-Deploy to gh-pages @ esinlayo.github.io/keybored
 
+## Other possible scripts
 
 ### `npm run eject`
 

@@ -5,7 +5,9 @@ import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 
+import { webServerURL } from '../../config.json'
 import discord_icon from "../../img/discord.png";
+
 class LeaderboardNameInput extends Component {
   render() {
     const handleCheckboxChange = name => event => {
@@ -30,7 +32,7 @@ class LeaderboardNameInput extends Component {
               <Typography variant="body1" component="span">
                 {"using my name on"}
               </Typography>
-              <a href="http://localhost:8080/auth_discord/login">
+              <a href={`${webServerURL}/auth_discord/login`} >
                 <img src={discord_icon} alt="Discord Icon" style={{ padding: "0px 3px ", width: 25, height: 25 }} />
               </a>
             </React.Fragment>

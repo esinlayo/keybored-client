@@ -1,8 +1,8 @@
 {
   "gameServer": "wss://keybored.fun:8080",
-  "scoresApi": "https://keybored.fun:8080/scores",
+  "webServerURL": "https://keybored.fun:8080",
   "_prod_gameServer": "wss://keybored.fun:8080",
-  "_prod_scoresApi": "https://keybored.fun:8080/scores",
+  "_prod_webServerURL": "https://keybored.fun:8080",
   "_dev_gameServer": "ws://192.168.1.66:8080",
-  "_dev_scoresApi": "http://192.168.1.66:8080/scores"
+  "_dev_webServerURL": "http://192.168.1.66:8080"
 }

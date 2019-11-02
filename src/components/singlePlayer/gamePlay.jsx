@@ -6,8 +6,8 @@ import ScoresBox from "./scoresBox";
 import TypeArea from "./typeArea";
 import Leaderboards from "./leaderboards";
 
-import config from "../../config";
-
+import { webServerURL } from "../../config";
+const scoresAPI = webServerURL + "/scores"
 
 axios.interceptors.response.use(null, err => {
     const msg = (err.response !== undefined) ? `\r\n${err.response.data}` : ""
@@ -93,7 +93,7 @@ class GamePlay extends Component {
             score: Math.round(speed)
         };
         try {
-            await axios.post(config.scoresApi, scoreEntry, {
+            await axios.post(scoresAPI, scoreEntry, {
                 headers: { "Content-Size": 4 }
             });
             this.updateLeaderboards(speed);
@@ -119,7 +119,7 @@ class GamePlay extends Component {
         if (score) this.updateLdrBoardOptimistically(score);
 
         try {
-            const { data } = await axios.get(config.scoresApi);
+            const { data } = await axios.get(scoresAPI);
             const { mostRecentScores, topScores } = data;
             if (this._isMounted) this.setState({ leaderboard2Days: topScores, mostRecentScores });
         } catch (ex) {

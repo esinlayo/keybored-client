@@ -3,18 +3,17 @@ import React, { Component } from "react";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
+import Typography from "@material-ui/core/Typography";
 
+import discord_icon from "../../img/discord.png";
 class LeaderboardNameInput extends Component {
   render() {
     const handleCheckboxChange = name => event => {
-      this.props.onOptionsChange({ [name]: event.target.checked });
+      if (this.props.auth != null)
+        this.props.onCheckboxChange({ [name]: event.target.checked });
     };
-
-    const handleNameChange = ({ currentTarget: input }) => {
-      this.props.onLeaderboardNameChange(input.value);
-    };
-
     return (
+
       <div style={{ display: "inline-block", verticalAlign: "middle" }} >
         <FormGroup style={{ display: "inline-block", textAlign: "left" }}>
           <FormControlLabel
@@ -22,13 +21,20 @@ class LeaderboardNameInput extends Component {
             control={<Checkbox
               style={{ padding: 0 }} color="primary"
               checked={this.props.enableScoreSubmission}
-              onChange={handleCheckboxChange("enableScoreSubmission")} />}
-            label="Submit my scores to leaderboards as " />
-          <input
-            style={{ padding: 0, margin: 0 }}
-            type="text" maxLength="25"
-            onChange={handleNameChange}
-            value={this.props.nameForScores} />
+              onChange={handleCheckboxChange("enableScoreSubmission")} />} />
+          <Typography variant="body1" component="span">
+            {"Submit my scores to leaderboards "}
+          </Typography>
+          {this.props.auth != null ? <Typography variant="body1" component="span">{`as ${this.props.auth}`}</Typography> :
+            <React.Fragment>
+              <Typography variant="body1" component="span">
+                {"using my name on"}
+              </Typography>
+              <a href="http://localhost:8080/auth_discord/login">
+                <img src={discord_icon} alt="Discord Icon" style={{ padding: "0px 3px ", width: 25, height: 25 }} />
+              </a>
+            </React.Fragment>
+          }
         </FormGroup>
       </div>
     );

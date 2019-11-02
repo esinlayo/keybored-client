@@ -44,16 +44,13 @@ class TypeArea extends Component {
           typedInputBox={this.typedInputBox}
           handleChange={this.handleChange} />
         <LeaderboardNameInput
-          onOptionsChange={this.handleOptions}
-          onLeaderboardNameChange={val => this.handleNameChange(val)}
+          onCheckboxChange={this.handleOptions}
           enableScoreSubmission={this.props.enableScoreSubmission}
-          nameForScores={this.props.nameForScores} />
+          auth={this.props.auth} setAuth={this.props.setAuth}
+        />
       </div>
     );
   }
-  handleNameChange = val => {
-    this.props.onLeaderboardNameChange(val);
-  };
   handleChange = ({ currentTarget: input }) => {
     const { textToType } = this.state;
     const textTyped = input.value;

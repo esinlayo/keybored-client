@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "typeface-roboto";
 
 import AppBar from "@material-ui/core/AppBar";
@@ -10,6 +10,7 @@ import PlayWithFriends from "./components/playWithFriends.jsx";
 import NotFound from "./components/notFound";
 
 function App() {
+  const [auth, setAuth] = useState(null);
   return (
     <React.Fragment>
       <AppBar color="primary" position="static"
@@ -21,8 +22,8 @@ function App() {
 
       <div id="app">
         <Switch>
-          <Route path="/play" render={() => <SinglePlayer />} />
-          {/*<Route path="/multiplayer" render={() => <SinglePlayer />} />*/}
+          <Route path="/play" render={() =>
+            <SinglePlayer auth={auth} setAuth={auth => setAuth(auth)} />} />
           <Route path="/withfriends" render={() => <PlayWithFriends />} />
 
           <Route path="/" exact render={() => <ModeSelection />} />

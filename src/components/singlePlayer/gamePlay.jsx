@@ -7,7 +7,6 @@ import TypeArea from "./typeArea";
 import Leaderboards from "./leaderboards";
 
 import config from "../../config";
-import { generateRandomLeaderboardName } from "../../services";
 
 
 axios.interceptors.response.use(null, err => {
@@ -17,8 +16,8 @@ axios.interceptors.response.use(null, err => {
 })
 
 class GamePlay extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this._isMounted = false;
         this.state = {
             progress: 0,
@@ -27,8 +26,7 @@ class GamePlay extends Component {
 
             score: null, highScore: null,
 
-            enableScoreSubmission: true,
-            nameForScores: generateRandomLeaderboardName(),
+            enableScoreSubmission: props.auth != null ? true : false,
             mostRecentScores: [],
             leaderboard2Days: []
         };
@@ -56,7 +54,9 @@ class GamePlay extends Component {
                             nameForScores={this.state.nameForScores}
                             enableScoreSubmission={this.state.enableScoreSubmission}
                             onChangeScoreSubmissionSettings={this.handleChangeScoreSubmissionSettings}
-                            leaderboardRetrieved={this.state.mostRecentScores.length !== 0} />
+                            leaderboardRetrieved={this.state.mostRecentScores.length !== 0}
+                            auth={this.props.auth} setAuth={this.props.setAuth}
+                        />
                     </div>
                 </div>
                 <div className="gameContainer">
@@ -89,7 +89,7 @@ class GamePlay extends Component {
 
     submitScores = async speed => {
         const scoreEntry = {
-            name: this.state.nameForScores,
+            name: this.props.auth,
             score: Math.round(speed)
         };
         try {
@@ -102,9 +102,6 @@ class GamePlay extends Component {
         }
     };
 
-    handleLeaderboardNameChange = name => {
-        this.setState({ nameForScores: name });
-    };
 
     handleChangeScoreSubmissionSettings = () => {
         // Ideally would like to use nextPassageSettings (found in TypeBox component's state)

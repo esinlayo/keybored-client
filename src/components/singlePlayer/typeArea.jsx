@@ -46,6 +46,7 @@ class TypeArea extends Component {
         <LeaderboardNameInput
           onCheckboxChange={this.handleOptions}
           enableScoreSubmission={this.props.enableScoreSubmission}
+          onChangeScoreSubmissionSettings={this.props.onChangeScoreSubmissionSettings}
           auth={this.props.auth} setAuth={this.props.setAuth}
         />
       </div>

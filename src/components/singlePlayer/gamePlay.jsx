@@ -103,13 +103,15 @@ class GamePlay extends Component {
     };
 
 
-    handleChangeScoreSubmissionSettings = () => {
+    handleChangeScoreSubmissionSettings = (option) => {
         // Ideally would like to use nextPassageSettings (found in TypeBox component's state)
         //  to check if capital letters and punctuation is included, and only allow
         //  enabling of score submission if both are included. But this would involve
         //  lifting the state up... yet again.
         // I explore other state management for play with friends mode.
-        this.setState({ enableScoreSubmission: !this.state.enableScoreSubmission });
+        if (option !== undefined && option == "ensable") this.setState({ enableScoreSubmission: true });
+        else if (option !== undefined && option == "disable") this.setState({ enableScoreSubmission: false });
+        else this.setState({ enableScoreSubmission: !this.state.enableScoreSubmission });
     };
 
     async updateLeaderboards(score) {

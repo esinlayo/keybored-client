@@ -8,9 +8,10 @@ import ModeSelection from "./components/modeSelection";
 import SinglePlayer from "./components/singlePlayer";
 import PlayWithFriends from "./components/playWithFriends.jsx";
 import NotFound from "./components/notFound";
+import getuid from "./auth.js"
 
 function App() {
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState(getuid());
   return (
     <React.Fragment>
       <AppBar color="primary" position="static"

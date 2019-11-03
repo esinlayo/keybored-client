@@ -4,9 +4,11 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 import { webServerURL } from '../../config.json'
 import discord_icon from "../../img/discord.png";
+import google_icon from "../../img/google.png";
 
 class LeaderboardNameInput extends Component {
   render() {
@@ -27,7 +29,19 @@ class LeaderboardNameInput extends Component {
           <Typography variant="body1" component="span">
             {"Submit my scores to leaderboards "}
           </Typography>
-          {this.props.auth != null ? <Typography variant="body1" component="span">{`as ${this.props.auth}`}</Typography> :
+          {this.props.auth != null ?
+            <React.Fragment>
+              <Typography variant="body1" component="span">{`as ${this.props.auth}`}</Typography>
+              <Button style={{ display: "inline-block", verticalAlign: "middle", margin: "0px 0px 0px 10px", padding: "2px" }}
+                size="small" color="primary" variant="outlined"
+                onClick={() => {
+                  this.props.onChangeScoreSubmissionSettings("disable");
+                  this.props.setAuth(null);
+                  document.cookie = "uid=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+                }}>
+                clear name</Button>
+            </React.Fragment>
+            :
             <React.Fragment>
               <Typography variant="body1" component="span">
                 {"using my name on"}
@@ -35,10 +49,13 @@ class LeaderboardNameInput extends Component {
               <a href={`${webServerURL}/auth_discord/login`} >
                 <img src={discord_icon} alt="Discord Icon" style={{ padding: "0px 3px ", width: 25, height: 25 }} />
               </a>
+              <a href={`${webServerURL}/auth_google/login`} >
+                <img src={google_icon} alt="Google Icon" style={{ padding: "0px 3px ", width: 25, height: 25 }} />
+              </a>
             </React.Fragment>
           }
         </FormGroup>
-      </div>
+      </div >
     );
   }
 }

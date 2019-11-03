@@ -28,7 +28,8 @@ class GamePlay extends Component {
 
             enableScoreSubmission: props.auth != null ? true : false,
             mostRecentScores: [],
-            leaderboard2Days: []
+            topScores: [],
+            topScores2Days: []
         };
     }
 
@@ -62,7 +63,9 @@ class GamePlay extends Component {
                 <div className="gameContainer">
                     <Leaderboards
                         mostRecentScores={this.state.mostRecentScores}
-                        leaderboard2Days={this.state.leaderboard2Days} />
+                        topScores={this.state.topScores}
+                        topScores2Days={this.state.topScores2Days}
+                    />
                 </div>
             </React.Fragment>
         );
@@ -116,18 +119,30 @@ class GamePlay extends Component {
 
     async updateLeaderboards(score) {
         const origMostRecent = this.state.mostRecentScores;
-        const orig2Days = this.state.leaderboard2Days;
+        const origAllTime = this.state.topScores;
+        const orig2Days = this.state.topScores2Days;
 
         if (score) this.updateLdrBoardOptimistically(score);
 
         try {
-            const { data } = await axios.get(scoresAPI);
-            const { mostRecentScores, topScores } = data;
-            if (this._isMounted) this.setState({ leaderboard2Days: topScores, mostRecentScores });
+
+            if (origMostRecent.length == 0 ||
+                (orig2Days.length == 0 || (orig2Days.length > 0 && score > orig2Days[orig2Days.length - 1].score)) ||
+                (origAllTime.length > 0 && score > origAllTime[origAllTime.length - 1].score)
+            ) {
+                const { data } = await axios.get(`${scoresAPI}/10`);
+                const { mostRecentScores, topScores, topScores2Days } = data;
+                if (this._isMounted) this.setState({ mostRecentScores, topScores, topScores2Days });
+            } else {
+                const { data } = await axios.get(scoresAPI);
+                const { mostRecentScores } = data;
+                if (this._isMounted) this.setState({ mostRecentScores });
+            }
+
         } catch (ex) {
             if (this._isMounted) {
                 console.log("An unexpected error occurred while trying to update the leaderboards.")
-                this.setState({ leaderboard2Days: orig2Days, mostRecentScores: origMostRecent });
+                this.setState({ mostRecentScores: origMostRecent, topScores: origAllTime, topScores2Days: orig2Days });
             }
         }
     }

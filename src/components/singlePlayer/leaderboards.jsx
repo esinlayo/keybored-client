@@ -25,7 +25,7 @@ class Leaderboards extends Component {
   }
 
   render() {
-    const { mostRecentScores, leaderboard2Days } = this.props;
+    const { mostRecentScores, topScores, topScores2Days } = this.props;
     return (
       <div id="leaderboards1"><div id="leaderboards2"><center><table><tbody><tr>
         {mostRecentScores.length === 0 ? <td style={{ padding: "4%" }}>{this.state.connectingMessage}</td> :
@@ -39,7 +39,14 @@ class Leaderboards extends Component {
             </td>
             <td style={{ verticalAlign: "top" }}>
               <Leaderboard
-                leaderboard={leaderboard2Days}
+                leaderboard={topScores}
+                title="High Scores - All Time"
+                showRank={true}
+                dateOptions={"mmdd,time"} />
+            </td>
+            <td style={{ verticalAlign: "top" }}>
+              <Leaderboard
+                leaderboard={topScores2Days}
                 title="High Scores - Past Two Days"
                 showRank={true}
                 dateOptions={""} />

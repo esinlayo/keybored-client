@@ -109,8 +109,8 @@ class GamePlay extends Component {
         //  enabling of score submission if both are included. But this would involve
         //  lifting the state up... yet again.
         // I explore other state management for play with friends mode.
-        if (option !== undefined && option == "ensable") this.setState({ enableScoreSubmission: true });
-        else if (option !== undefined && option == "disable") this.setState({ enableScoreSubmission: false });
+        if (option !== undefined && option === "enable") this.setState({ enableScoreSubmission: true });
+        else if (option !== undefined && option === "disable") this.setState({ enableScoreSubmission: false });
         else this.setState({ enableScoreSubmission: !this.state.enableScoreSubmission });
     };
 

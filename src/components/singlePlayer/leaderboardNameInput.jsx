@@ -46,10 +46,10 @@ class LeaderboardNameInput extends Component {
               <Typography variant="body1" component="span">
                 {"using my name on"}
               </Typography>
-              <a href={`${webServerURL}/auth_discord/login`} >
+              <a href={`${webServerURL}/auth/login/discord`} >
                 <img src={discord_icon} alt="Discord Icon" style={{ padding: "0px 3px ", width: 25, height: 25 }} />
               </a>
-              <a href={`${webServerURL}/auth_google/login`} >
+              <a href={`${webServerURL}/auth/login/google`} >
                 <img src={google_icon} alt="Google Icon" style={{ padding: "0px 3px ", width: 25, height: 25 }} />
               </a>
             </React.Fragment>

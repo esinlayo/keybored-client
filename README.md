@@ -22,7 +22,7 @@ For this setting, the "homepage" field in package.json must be set to `https://k
 
 Note that *npm run deploy* runs this build script as well, so we will be overwriting the build folder, but the staging was uploaded to the github repo already.
 
-Now cd into the **build** folder. `scp -r . root@esinlayo.me:/var/www/keybored`
+Now copy the built files to the server: `scp -r ./build root@esinlayo.me:/var/www/keybored`
 
 
 ## Other possible scripts

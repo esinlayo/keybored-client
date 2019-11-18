@@ -96,9 +96,7 @@ class GamePlay extends Component {
             score: Math.round(speed)
         };
         try {
-            await axios.post(scoresAPI, scoreEntry, {
-                headers: { "Content-Size": 4 }
-            });
+            await axios.post(scoresAPI, scoreEntry);
             this.updateLeaderboards(speed);
         } catch (ex) {
             console.log("An unexpected error occured while trying to submit scores:", ex);

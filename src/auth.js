@@ -1,19 +1,26 @@
-let decipher = salt => {
-    let textToChars = text => text.split('').map(c => c.charCodeAt(0))
-    //let saltChars = textToChars(salt)
-    let applySaltToChar = code => textToChars(salt).reduce((a, b) => a ^ b, code)
-    return encoded => encoded.match(/.{1,2}/g)
-        .map(hex => parseInt(hex, 16))
-        .map(applySaltToChar)
-        .map(charCode => String.fromCharCode(charCode))
-        .join('')
-};
+import axios from 'axios'
+import { webServerURL } from './config.json'
 
-const getuid = () => {
-    let name = document.cookie;
-    if (name.length >= 4) name = decipher('keybored-game')(name.substring(4, name.length));
-    else name = null;
-    return name
+let uid = null;
+
+export const getname = async (setAuth) => {
+    if (document.cookie.length >= 11) {
+        uid = (document.cookie.substring(11, document.cookie.length - 3)) // trimLeft("j%3A%22").trimRight("%22");
+        const user = await axios.get(`${webServerURL}/auth/byId/${uid}`);
+        setAuth(user.data);
+    } else if (document.cookie.length > 0) return;
+    else setAuth(undefined);
 }
 
-export default getuid;
+export const getuid = () => uid;
+
+/*
+auth
+----------------------------------------------------------------------------------
+undefined: there is no cookie set, so show the login prompt in leaderboardNameInput
+null :     cookie exists, auth remains null if we are processing the cookie or there
+           was an error processing the cookie
+
+auth's states are distict so that we have a chance to analyze the possible cookie
+    before rendering the login prompt.
+*/

@@ -7,7 +7,9 @@ import TypeArea from "./typeArea";
 import Leaderboards from "./leaderboards";
 
 import { webServerURL } from "../../config";
+import { getuid } from "./../../auth.js"
 const scoresAPI = webServerURL + "/scores"
+
 
 axios.interceptors.response.use(null, err => {
     const msg = (err.response !== undefined) ? `\r\n${err.response.data}` : ""
@@ -26,7 +28,7 @@ class GamePlay extends Component {
 
             score: null, highScore: null,
 
-            enableScoreSubmission: props.auth != null ? true : false,
+            enableScoreSubmission: (props.auth !== null && props.auth !== undefined) ? true : false,
             mostRecentScores: [],
             topScores: [],
             topScores2Days: []
@@ -38,6 +40,11 @@ class GamePlay extends Component {
         await this.updateLeaderboards();
     }
     componentWillUnmount() { this._isMounted = false }
+
+    componentDidUpdate(oldProps) {
+        if ((oldProps.auth !== this.props.auth) && this.props.auth)
+            this.setState({ enableScoreSubmission: true })
+    }
 
     render() {
         return (
@@ -93,7 +100,8 @@ class GamePlay extends Component {
     submitScores = async speed => {
         const scoreEntry = {
             name: this.props.auth,
-            score: Math.round(speed)
+            score: Math.round(speed),
+            uid: getuid()
         };
         try {
             await axios.post(scoresAPI, scoreEntry);
@@ -124,9 +132,10 @@ class GamePlay extends Component {
 
         try {
 
-            if (origMostRecent.length == 0 ||
-                (orig2Days.length == 0 || (orig2Days.length > 0 && score > orig2Days[orig2Days.length - 1].score)) ||
-                (origAllTime.length > 0 && score > origAllTime[origAllTime.length - 1].score)
+            if (
+                (origMostRecent.length === 0 || orig2Days.length < 10 || origAllTime.length < 10)
+                || (orig2Days.length > 0 && score > orig2Days[orig2Days.length - 1].score)
+                || (origAllTime.length > 0 && score > origAllTime[origAllTime.length - 1].score)
             ) {
                 const { data } = await axios.get(`${scoresAPI}/10`);
                 const { mostRecentScores, topScores, topScores2Days } = data;

@@ -13,7 +13,7 @@ import google_icon from "../../img/google.png";
 class LeaderboardNameInput extends Component {
   render() {
     const handleCheckboxChange = name => event => {
-      if (this.props.auth !== null)
+      if (this.props.auth !== null && this.props.auth !== undefined)
         this.props.onCheckboxChange({ [name]: event.target.checked });
     };
     return (

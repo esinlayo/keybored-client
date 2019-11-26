@@ -17,6 +17,12 @@ class TypeArea extends Component {
         };
     }
 
+    componentWillReceiveProps(newProps) {
+        if (this.props.countdown > 0 && newProps.countdown === 0) {
+            this.typedInputBox.current.focus()
+        }
+    }
+
     render() {
         return (
             <div id="typeBox">
